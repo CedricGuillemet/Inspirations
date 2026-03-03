@@ -287,6 +287,40 @@ def build_html(folders: dict[str, list[str]], repo_name: str = "Inspirations") -
     /* ── Responsive ── */
     @media (max-width: 900px)  {{ .masonry {{ columns: 2; }} }}
     @media (max-width: 520px)  {{ .masonry {{ columns: 1; }} .nav-thumb {{ --thumb: 90px; }} }}
+
+    /* ── Floating nav buttons ── */
+    .fab-cluster {{
+      position: fixed;
+      bottom: .75rem;
+      right: .75rem;
+      display: flex;
+      flex-direction: column;
+      gap: .45rem;
+      z-index: 100;
+    }}
+    .fab {{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color .15s, background .15s, color .15s, transform .15s;
+      box-shadow: 0 2px 8px rgba(0,0,0,.4);
+      line-height: 1;
+    }}
+    .fab:hover {{
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(200,169,110,.08);
+      transform: translateY(-2px);
+    }}
   </style>
 </head>
 <body>
@@ -302,6 +336,28 @@ def build_html(folders: dict[str, list[str]], repo_name: str = "Inspirations") -
   <main>
 {"".join(chr(10) + s for s in sections_html)}
   </main>
+
+  <div class="fab-cluster">
+    <a class="fab" href="#top" title="Back to top">&#9651;</a>
+    <button class="fab" id="fab-section" title="Current section" onclick="fabSection()">&#9650;</button>
+  </div>
+
+  <script>
+    function fabSection() {{
+      var sections = Array.from(document.querySelectorAll('section'));
+      var current = null;
+      for (var i = 0; i < sections.length; i++) {{
+        var top = sections[i].getBoundingClientRect().top;
+        if (top <= 80) current = sections[i];
+        else break;
+      }}
+      var target = current || sections[0];
+      if (target) {{
+        var summary = target.querySelector('summary');
+        (summary || target).scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+      }}
+    }}
+  </script>
 </body>
 </html>
 """
