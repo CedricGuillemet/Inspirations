@@ -14,7 +14,7 @@ IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif", ".svg", ".bmp",
 
 # Folders / files to skip
 SKIP_DIRS = {".git", ".github", "scripts", "node_modules", ".DS_Store"}
-SKIP_FILES = {".DS_Store"}
+SKIP_FILES = {".DS_Store", "screenshot.jpg"}
 
 
 def collect_images(root: Path) -> dict[str, list[str]]:
