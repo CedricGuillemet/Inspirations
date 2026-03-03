@@ -9,17 +9,27 @@ on:
   workflow_dispatch:   # allow manual runs from the Actions tab
 
 permissions:
-  contents: write      # needed to push the generated file back
+  contents: write      # commit index.html back to the branch
+  pages: write         # deploy to GitHub Pages
+  id-token: write      # required by actions/deploy-pages
+
+# Only one Pages deployment at a time
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
+  # ── 1. Generate index.html and commit it back ──────────────────────────────
   build:
     runs-on: ubuntu-latest
+    outputs:
+      artifact-uploaded: ${{ steps.upload.outputs.artifact-id != '' }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # full history so git log works if needed
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -36,16 +46,34 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Wire the token into the remote URL so the push is authenticated
           git remote set-url origin \
             "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
 
           git add index.html
 
-          # Only commit if the file actually changed
           if git diff --cached --quiet; then
             echo "index.html is already up-to-date, nothing to commit."
           else
             git commit -m "chore: regenerate image index [skip ci]"
             git push origin HEAD:${{ github.ref_name }}
           fi
+
+      # Upload the whole repo root as the Pages artifact so all images resolve
+      - name: Upload Pages artifact
+        id: upload
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."   # repo root — index.html + all image folders
+
+  # ── 2. Deploy to GitHub Pages ───────────────────────────────────────────────
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
