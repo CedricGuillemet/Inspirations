@@ -1,0 +1,51 @@
+name: Generate Image Index
+
+on:
+  push:
+    branches: ["**"]
+    paths-ignore:
+      - "index.html"   # avoid re-triggering on the very commit this workflow creates
+
+  workflow_dispatch:   # allow manual runs from the Actions tab
+
+permissions:
+  contents: write      # needed to push the generated file back
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history so git log works if needed
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate index.html
+        run: python scripts/generate_index.py "${{ github.workspace }}"
+
+      - name: Commit and push index.html
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Wire the token into the remote URL so the push is authenticated
+          git remote set-url origin \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+
+          git add index.html
+
+          # Only commit if the file actually changed
+          if git diff --cached --quiet; then
+            echo "index.html is already up-to-date, nothing to commit."
+          else
+            git commit -m "chore: regenerate image index [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+          fi

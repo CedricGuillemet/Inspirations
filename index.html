@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspirations</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #111;
+      --surface: #1a1a1a;
+      --border: #2a2a2a;
+      --accent: #c8a96e;
+      --text: #e0e0e0;
+      --muted: #666;
+      --radius: 6px;
+      --thumb: 120px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 2rem 2rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    header h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: -.02em; }
+    header .meta { color: var(--muted); font-size: .875rem; margin-top: .2rem; }
+
+    /* ── Nav: thumbnail grid ── */
+    nav {
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* Square thumbnail card */
+    .nav-thumb {
+      display: block;
+      position: relative;
+      width: var(--thumb);
+      height: var(--thumb);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: border-color .15s, transform .15s;
+    }
+    .nav-thumb:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .nav-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Folder name overlay */
+    .nav-thumb span {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: .3rem .4rem;
+      background: linear-gradient(transparent, rgba(0,0,0,.75));
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: .01em;
+      text-align: center;
+      word-break: break-word;
+    }
+
+    /* ── Main layout ── */
+    main { padding: 2rem; max-width: 1600px; margin: 0 auto; }
+
+    section { margin-bottom: 2rem; }
+
+    /* ── Collapsible section header ── */
+    details > summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      cursor: pointer;
+      padding: .6rem .8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: .75rem;
+      user-select: none;
+    }
+    details > summary::-webkit-details-marker { display: none; }
+    details > summary::before {
+      content: "▶";
+      font-size: .65rem;
+      color: var(--muted);
+      transition: transform .2s;
+      flex-shrink: 0;
+    }
+    details[open] > summary::before { transform: rotate(90deg); }
+    details > summary:hover { border-color: var(--accent); }
+
+    .folder-title {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    .count {
+      font-size: .75rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: auto;
+    }
+
+    /* Back-to-top button inside summary */
+    .top-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      font-size: .72rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      padding: .15rem .45rem;
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) - 1px);
+      transition: border-color .15s, background .15s;
+      flex-shrink: 0;
+      margin-left: .5rem;
+    }
+    .top-btn:hover {
+      border-color: var(--accent);
+      background: rgba(200,169,110,.08);
+    }
+
+    /* ── Masonry ── */
+    .masonry {
+      columns: 3;
+      column-gap: 8px;
+    }
+
+    /* ── Card ── */
+    .card {
+      display: block;
+      break-inside: avoid;
+      margin-bottom: 8px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: border-color .15s, opacity .15s;
+    }
+    .card:hover { border-color: var(--accent); opacity: .9; }
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px)  { .masonry { columns: 2; } }
+    @media (max-width: 520px)  { .masonry { columns: 1; } .nav-thumb { --thumb: 90px; } }
+  </style>
+</head>
+<body>
+  <header id="top">
+    <h1>Inspirations</h1>
+    <p class="meta">316 images &middot; 20 folders</p>
+  </header>
+  <nav>
+    <ul>
+    <li>
+      <a class="nav-thumb" href="#root">
+        <img src="1-of-1-031.jpg" alt="Root" loading="lazy">
+        <span>Root</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#64Kb2">
+        <img src="64Kb2/106390.gif" alt="64Kb2" loading="lazy">
+        <span>64Kb2</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#Brutalism">
+        <img src="Brutalism/1750580204407.jpeg" alt="Brutalism" loading="lazy">
+        <span>Brutalism</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#Lighting">
+        <img src="Lighting/SamuraiJack.jpg" alt="Lighting" loading="lazy">
+        <span>Lighting</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#MirrorsEdge">
+        <img src="MirrorsEdge/514334017_1268512687971672_8075793245169697601_n.jpg" alt="MirrorsEdge" loading="lazy">
+        <span>MirrorsEdge</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#Wipeput">
+        <img src="Wipeput/bafkreiaq7uo7ldednho7xsdxq54snfhylm6kkbor2klha35ofzkxrddvf4.jpg" alt="Wipeput" loading="lazy">
+        <span>Wipeput</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#bridges">
+        <img src="bridges/AIR-CRE-Los-Angeles-River-1288x724.jpg" alt="bridges" loading="lazy">
+        <span>bridges</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#cartoon">
+        <img src="cartoon/HHhouseMW.webp" alt="cartoon" loading="lazy">
+        <span>cartoon</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#characters">
+        <img src="characters/bafkreib2pzhpelrqyyxq7qy7la2f3iljx6sgbow4zvpblzfjhewjtllyju.jpg" alt="characters" loading="lazy">
+        <span>characters</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#city">
+        <img src="city/bafkreihtzbfh3qv4yqplsogx3hbe2efakv7l64y5pmv4uyg3deywy3rt4y.jpg" alt="city" loading="lazy">
+        <span>city</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#futurism">
+        <img src="futurism/bafkreicfasimxcxovqekqwmgxulj3jzwld7olzdqijeavfvl6xvmxri6oe.jpg" alt="futurism" loading="lazy">
+        <span>futurism</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#geometry">
+        <img src="geometry/bafkreibjimsspiipvfth7gfawh34fvgjg2naotlvnzod5o4d7n7cy3j7yi.jpg" alt="geometry" loading="lazy">
+        <span>geometry</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#kaa">
+        <img src="kaa/3e7f5ade2b12abbdbd671d363bae84aa.jpg" alt="kaa" loading="lazy">
+        <span>kaa</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#landscape">
+        <img src="landscape/bafkreib73v5le2knctax5sqp4sncz3gqq2k5yknpx24smd7ztfquesvnw4.jpg" alt="landscape" loading="lazy">
+        <span>landscape</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#lightAndShadows">
+        <img src="lightAndShadows/bafkreialfralsd2jl4k2e4gxg4ljaai4yglaw24kukhrtic6iuxxszuehi.jpg" alt="lightAndShadows" loading="lazy">
+        <span>lightAndShadows</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#manga">
+        <img src="manga/domu.jpg" alt="manga" loading="lazy">
+        <span>manga</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#pipes">
+        <img src="pipes/Tatsuwo+-+13.webp" alt="pipes" loading="lazy">
+        <span>pipes</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#pipes2">
+        <img src="pipes2/Eu43xWWVcAYG-bB.jpg" alt="pipes2" loading="lazy">
+        <span>pipes2</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#sketches">
+        <img src="sketches/bafkreidwsdum64s6l4dbsaf47f6xrb46dr4dcy2mrmbxnzzanbhwwrnmq4.jpg" alt="sketches" loading="lazy">
+        <span>sketches</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#winter">
+        <img src="winter/bafkreifhnhadrz6q3w2iqzd4hgxsp25tcl2gyuprknd7lry5atyhn3lteq.jpg" alt="winter" loading="lazy">
+        <span>winter</span>
+      </a>
+    </li>
+    </ul>
+  </nav>
+  <main>
+
+  <section id="root">
+    <details open>
+      <summary>
+        <span class="folder-title">Root</span>
+        <span class="count">90 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="1-of-1-031.jpg" target="_blank" rel="noopener">
+          <img src="1-of-1-031.jpg" alt="1-of-1-031.jpg" title="1-of-1-031.jpg" loading="lazy">
+        </a>
+        <a class="card" href="329123-alexfas01.jpg" target="_blank" rel="noopener">
+          <img src="329123-alexfas01.jpg" alt="329123-alexfas01.jpg" title="329123-alexfas01.jpg" loading="lazy">
+        </a>
+        <a class="card" href="3914382f446ee3792b12a8c62050554e.png" target="_blank" rel="noopener">
+          <img src="3914382f446ee3792b12a8c62050554e.png" alt="3914382f446ee3792b12a8c62050554e.png" title="3914382f446ee3792b12a8c62050554e.png" loading="lazy">
+        </a>
+        <a class="card" href="3939371f7f7f9ade5873e76ee7914e91.jpg" target="_blank" rel="noopener">
+          <img src="3939371f7f7f9ade5873e76ee7914e91.jpg" alt="3939371f7f7f9ade5873e76ee7914e91.jpg" title="3939371f7f7f9ade5873e76ee7914e91.jpg" loading="lazy">
+        </a>
+        <a class="card" href="398795b045d01a578a33491f64add368.jpg" target="_blank" rel="noopener">
+          <img src="398795b045d01a578a33491f64add368.jpg" alt="398795b045d01a578a33491f64add368.jpg" title="398795b045d01a578a33491f64add368.jpg" loading="lazy">
+        </a>
+        <a class="card" href="463333990_122137848878327232_4810729113090373567_n.jpg" target="_blank" rel="noopener">
+          <img src="463333990_122137848878327232_4810729113090373567_n.jpg" alt="463333990_122137848878327232_4810729113090373567_n.jpg" title="463333990_122137848878327232_4810729113090373567_n.jpg" loading="lazy">
+        </a>
+        <a class="card" href="464736234_952061073619823_7398233587596973034_n.jpg" target="_blank" rel="noopener">
+          <img src="464736234_952061073619823_7398233587596973034_n.jpg" alt="464736234_952061073619823_7398233587596973034_n.jpg" title="464736234_952061073619823_7398233587596973034_n.jpg" loading="lazy">
+        </a>
+        <a class="card" href="465704024_448354028290778_4160442258785268847_n.jpg" target="_blank" rel="noopener">
+          <img src="465704024_448354028290778_4160442258785268847_n.jpg" alt="465704024_448354028290778_4160442258785268847_n.jpg" title="465704024_448354028290778_4160442258785268847_n.jpg" loading="lazy">
+        </a>
+        <a class="card" href="484031898_1062146265929383_2203195549797533783_n.jpg" target="_blank" rel="noopener">
+          <img src="484031898_1062146265929383_2203195549797533783_n.jpg" alt="484031898_1062146265929383_2203195549797533783_n.jpg" title="484031898_1062146265929383_2203195549797533783_n.jpg" loading="lazy">
+        </a>
+        <a class="card" href="6545.jpg" target="_blank" rel="noopener">
+          <img src="6545.jpg" alt="6545.jpg" title="6545.jpg" loading="lazy">
+        </a>
+        <a class="card" href="7069.jpg" target="_blank" rel="noopener">
+          <img src="7069.jpg" alt="7069.jpg" title="7069.jpg" loading="lazy">
+        </a>
+        <a class="card" href="7982752633_26b6bd17ff_k.jpg" target="_blank" rel="noopener">
+          <img src="7982752633_26b6bd17ff_k.jpg" alt="7982752633_26b6bd17ff_k.jpg" title="7982752633_26b6bd17ff_k.jpg" loading="lazy">
+        </a>
+        <a class="card" href="7982753091_4e54476427_o.jpg" target="_blank" rel="noopener">
+          <img src="7982753091_4e54476427_o.jpg" alt="7982753091_4e54476427_o.jpg" title="7982753091_4e54476427_o.jpg" loading="lazy">
+        </a>
+        <a class="card" href="8003381108_5462341ec8_b.jpg" target="_blank" rel="noopener">
+          <img src="8003381108_5462341ec8_b.jpg" alt="8003381108_5462341ec8_b.jpg" title="8003381108_5462341ec8_b.jpg" loading="lazy">
+        </a>
+        <a class="card" href="814c1a2959d131667a70fc65cc443.png" target="_blank" rel="noopener">
+          <img src="814c1a2959d131667a70fc65cc443.png" alt="814c1a2959d131667a70fc65cc443.png" title="814c1a2959d131667a70fc65cc443.png" loading="lazy">
+        </a>
+        <a class="card" href="962e2022919a12615818fa790484f.jpg" target="_blank" rel="noopener">
+          <img src="962e2022919a12615818fa790484f.jpg" alt="962e2022919a12615818fa790484f.jpg" title="962e2022919a12615818fa790484f.jpg" loading="lazy">
+        </a>
+        <a class="card" href="BuE1Pfp.png" target="_blank" rel="noopener">
+          <img src="BuE1Pfp.png" alt="BuE1Pfp.png" title="BuE1Pfp.png" loading="lazy">
+        </a>
+        <a class="card" href="City-Night-Blue.jpg" target="_blank" rel="noopener">
+          <img src="City-Night-Blue.jpg" alt="City-Night-Blue.jpg" title="City-Night-Blue.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Lone-Tree-Yellowstone-1321649541.jpg" target="_blank" rel="noopener">
+          <img src="Lone-Tree-Yellowstone-1321649541.jpg" alt="Lone-Tree-Yellowstone-1321649541.jpg" title="Lone-Tree-Yellowstone-1321649541.jpg" loading="lazy">
+        </a>
+        <a class="card" href="RUSIA3VALNBFHEXFBUMAC576TI.webp" target="_blank" rel="noopener">
+          <img src="RUSIA3VALNBFHEXFBUMAC576TI.webp" alt="RUSIA3VALNBFHEXFBUMAC576TI.webp" title="RUSIA3VALNBFHEXFBUMAC576TI.webp" loading="lazy">
+        </a>
+        <a class="card" href="S+OOfO.jpg" target="_blank" rel="noopener">
+          <img src="S+OOfO.jpg" alt="S+OOfO.jpg" title="S+OOfO.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Triple_Blood_Cells.jpg" target="_blank" rel="noopener">
+          <img src="Triple_Blood_Cells.jpg" alt="Triple_Blood_Cells.jpg" title="Triple_Blood_Cells.jpg" loading="lazy">
+        </a>
+        <a class="card" href="UE-EXPANDED.jpg" target="_blank" rel="noopener">
+          <img src="UE-EXPANDED.jpg" alt="UE-EXPANDED.jpg" title="UE-EXPANDED.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeout-HD-Fury-2.jpg" target="_blank" rel="noopener">
+          <img src="Wipeout-HD-Fury-2.jpg" alt="Wipeout-HD-Fury-2.jpg" title="Wipeout-HD-Fury-2.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeout-HD-Fury-3.jpg" target="_blank" rel="noopener">
+          <img src="Wipeout-HD-Fury-3.jpg" alt="Wipeout-HD-Fury-3.jpg" title="Wipeout-HD-Fury-3.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeout-HD-Fury-4.jpg" target="_blank" rel="noopener">
+          <img src="Wipeout-HD-Fury-4.jpg" alt="Wipeout-HD-Fury-4.jpg" title="Wipeout-HD-Fury-4.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeout-HD-Fury.jpg" target="_blank" rel="noopener">
+          <img src="Wipeout-HD-Fury.jpg" alt="Wipeout-HD-Fury.jpg" title="Wipeout-HD-Fury.jpg" loading="lazy">
+        </a>
+        <a class="card" href="bafkreidoz7onigxadbeckuzahx4fn6cwyufwqa3suhe2ra72hkjfzysigm.jpg" target="_blank" rel="noopener">
+          <img src="bafkreidoz7onigxadbeckuzahx4fn6cwyufwqa3suhe2ra72hkjfzysigm.jpg" alt="bafkreidoz7onigxadbeckuzahx4fn6cwyufwqa3suhe2ra72hkjfzysigm.jpg" title="bafkreidoz7onigxadbeckuzahx4fn6cwyufwqa3suhe2ra72hkjfzysigm.jpg" loading="lazy">
+        </a>
+        <a class="card" href="bafkreidstmtkvblb4aon4kgwf43xybga7vq7yluesvng4pf3gwczfshj3a.jpg" target="_blank" rel="noopener">
+          <img src="bafkreidstmtkvblb4aon4kgwf43xybga7vq7yluesvng4pf3gwczfshj3a.jpg" alt="bafkreidstmtkvblb4aon4kgwf43xybga7vq7yluesvng4pf3gwczfshj3a.jpg" title="bafkreidstmtkvblb4aon4kgwf43xybga7vq7yluesvng4pf3gwczfshj3a.jpg" loading="lazy">
+        </a>
+        <a class="card" href="bafkreifumtd6lebvjq4l2xnegbs65rmmhd3y3vvlznolxqbbs4q5hazvia.jpg" target="_blank" rel="noopener">
+          <img src="bafkreifumtd6lebvjq4l2xnegbs65rmmhd3y3vvlznolxqbbs4q5hazvia.jpg" alt="bafkreifumtd6lebvjq4l2xnegbs65rmmhd3y3vvlznolxqbbs4q5hazvia.jpg" title="bafkreifumtd6lebvjq4l2xnegbs65rmmhd3y3vvlznolxqbbs4q5hazvia.jpg" loading="lazy">
+        </a>
+        <a class="card" href="bafkreigb6lr6xct737r26lppef3cjj3qykeyy6ft5rei2n6xxdebclqnq4.jpg" target="_blank" rel="noopener">
+          <img src="bafkreigb6lr6xct737r26lppef3cjj3qykeyy6ft5rei2n6xxdebclqnq4.jpg" alt="bafkreigb6lr6xct737r26lppef3cjj3qykeyy6ft5rei2n6xxdebclqnq4.jpg" title="bafkreigb6lr6xct737r26lppef3cjj3qykeyy6ft5rei2n6xxdebclqnq4.jpg" loading="lazy">
+        </a>
+        <a class="card" href="bafkreigd3gcv5k5vepsxmsanorjupp4hlusmnul3prvug4trejserfv4hm.jpg" target="_blank" rel="noopener">
+          <img src="bafkreigd3gcv5k5vepsxmsanorjupp4hlusmnul3prvug4trejserfv4hm.jpg" alt="bafkreigd3gcv5k5vepsxmsanorjupp4hlusmnul3prvug4trejserfv4hm.jpg" title="bafkreigd3gcv5k5vepsxmsanorjupp4hlusmnul3prvug4trejserfv4hm.jpg" loading="lazy">
+        </a>
+        <a class="card" href="bisti_badlands_new_mexico-1920x1200.jpg" target="_blank" rel="noopener">
+          <img src="bisti_badlands_new_mexico-1920x1200.jpg" alt="bisti_badlands_new_mexico-1920x1200.jpg" title="bisti_badlands_new_mexico-1920x1200.jpg" loading="lazy">
+        </a>
+        <a class="card" href="black_and_white_stripes_swirl-wide.jpg" target="_blank" rel="noopener">
+          <img src="black_and_white_stripes_swirl-wide.jpg" alt="black_and_white_stripes_swirl-wide.jpg" title="black_and_white_stripes_swirl-wide.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cityscapes_tiltshift_vatican_city_1366x768_wallpaper_Wallpaper_1920x1200_www.wallmay.net.jpg" target="_blank" rel="noopener">
+          <img src="cityscapes_tiltshift_vatican_city_1366x768_wallpaper_Wallpaper_1920x1200_www.wallmay.net.jpg" alt="cityscapes_tiltshift_vatican_city_1366x768_wallpaper_Wallpaper_1920x1200_www.wallmay.net.jpg" title="cityscapes_tiltshift_vatican_city_1366x768_wallpaper_Wallpaper_1920x1200_www.wallmay.net.jpg" loading="lazy">
+        </a>
+        <a class="card" href="descend-wallpaper-1920x1080.jpg" target="_blank" rel="noopener">
+          <img src="descend-wallpaper-1920x1080.jpg" alt="descend-wallpaper-1920x1080.jpg" title="descend-wallpaper-1920x1080.jpg" loading="lazy">
+        </a>
+        <a class="card" href="e339a74f13420713c0189fc1b60c86e9.jpg" target="_blank" rel="noopener">
+          <img src="e339a74f13420713c0189fc1b60c86e9.jpg" alt="e339a74f13420713c0189fc1b60c86e9.jpg" title="e339a74f13420713c0189fc1b60c86e9.jpg" loading="lazy">
+        </a>
+        <a class="card" href="emotion_by_martasyrko-d73j85j.jpg" target="_blank" rel="noopener">
+          <img src="emotion_by_martasyrko-d73j85j.jpg" alt="emotion_by_martasyrko-d73j85j.jpg" title="emotion_by_martasyrko-d73j85j.jpg" loading="lazy">
+        </a>
+        <a class="card" href="eve_1.jpg" target="_blank" rel="noopener">
+          <img src="eve_1.jpg" alt="eve_1.jpg" title="eve_1.jpg" loading="lazy">
+        </a>
+        <a class="card" href="eveonline.jpg" target="_blank" rel="noopener">
+          <img src="eveonline.jpg" alt="eveonline.jpg" title="eveonline.jpg" loading="lazy">
+        </a>
+        <a class="card" href="fcltutn3bfy_by_martasyrko-d6n8n7h.jpg" target="_blank" rel="noopener">
+          <img src="fcltutn3bfy_by_martasyrko-d6n8n7h.jpg" alt="fcltutn3bfy_by_martasyrko-d6n8n7h.jpg" title="fcltutn3bfy_by_martasyrko-d6n8n7h.jpg" loading="lazy">
+        </a>
+        <a class="card" href="guggenheim_museum_bilbao_spain-1920x1200.jpg" target="_blank" rel="noopener">
+          <img src="guggenheim_museum_bilbao_spain-1920x1200.jpg" alt="guggenheim_museum_bilbao_spain-1920x1200.jpg" title="guggenheim_museum_bilbao_spain-1920x1200.jpg" loading="lazy">
+        </a>
+        <a class="card" href="jgo_twitter.jpg" target="_blank" rel="noopener">
+          <img src="jgo_twitter.jpg" alt="jgo_twitter.jpg" title="jgo_twitter.jpg" loading="lazy">
+        </a>
+        <a class="card" href="manhattan_new_york_city-1920x1200.jpg" target="_blank" rel="noopener">
+          <img src="manhattan_new_york_city-1920x1200.jpg" alt="manhattan_new_york_city-1920x1200.jpg" title="manhattan_new_york_city-1920x1200.jpg" loading="lazy">
+        </a>
+        <a class="card" href="maxresdefault.jpg" target="_blank" rel="noopener">
+          <img src="maxresdefault.jpg" alt="maxresdefault.jpg" title="maxresdefault.jpg" loading="lazy">
+        </a>
+        <a class="card" href="meleetactics.png" target="_blank" rel="noopener">
+          <img src="meleetactics.png" alt="meleetactics.png" title="meleetactics.png" loading="lazy">
+        </a>
+        <a class="card" href="midnight_bridge-1920x1200.jpg" target="_blank" rel="noopener">
+          <img src="midnight_bridge-1920x1200.jpg" alt="midnight_bridge-1920x1200.jpg" title="midnight_bridge-1920x1200.jpg" loading="lazy">
+        </a>
+        <a class="card" href="monorail_darling_harbour_sydney-1920x1200.jpg" target="_blank" rel="noopener">
+          <img src="monorail_darling_harbour_sydney-1920x1200.jpg" alt="monorail_darling_harbour_sydney-1920x1200.jpg" title="monorail_darling_harbour_sydney-1920x1200.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pennybacker_bridge_austin-1920x1200.jpg" target="_blank" rel="noopener">
+          <img src="pennybacker_bridge_austin-1920x1200.jpg" alt="pennybacker_bridge_austin-1920x1200.jpg" title="pennybacker_bridge_austin-1920x1200.jpg" loading="lazy">
+        </a>
+        <a class="card" href="photo-2253-ad8a6bc8.jpg" target="_blank" rel="noopener">
+          <img src="photo-2253-ad8a6bc8.jpg" alt="photo-2253-ad8a6bc8.jpg" title="photo-2253-ad8a6bc8.jpg" loading="lazy">
+        </a>
+        <a class="card" href="photo-2264-e09eb28f.jpg" target="_blank" rel="noopener">
+          <img src="photo-2264-e09eb28f.jpg" alt="photo-2264-e09eb28f.jpg" title="photo-2264-e09eb28f.jpg" loading="lazy">
+        </a>
+        <a class="card" href="s8Fsff.jpg" target="_blank" rel="noopener">
+          <img src="s8Fsff.jpg" alt="s8Fsff.jpg" title="s8Fsff.jpg" loading="lazy">
+        </a>
+        <a class="card" href="s_n41_0802011-.jpg" target="_blank" rel="noopener">
+          <img src="s_n41_0802011-.jpg" alt="s_n41_0802011-.jpg" title="s_n41_0802011-.jpg" loading="lazy">
+        </a>
+        <a class="card" href="singapore_city-1920x1200.jpg" target="_blank" rel="noopener">
+          <img src="singapore_city-1920x1200.jpg" alt="singapore_city-1920x1200.jpg" title="singapore_city-1920x1200.jpg" loading="lazy">
+        </a>
+        <a class="card" href="strange_by_martasyrko-d7q96f5.jpg" target="_blank" rel="noopener">
+          <img src="strange_by_martasyrko-d7q96f5.jpg" alt="strange_by_martasyrko-d7q96f5.jpg" title="strange_by_martasyrko-d7q96f5.jpg" loading="lazy">
+        </a>
+        <a class="card" href="tilt1.jpg" target="_blank" rel="noopener">
+          <img src="tilt1.jpg" alt="tilt1.jpg" title="tilt1.jpg" loading="lazy">
+        </a>
+        <a class="card" href="tokyo_screen.png" target="_blank" rel="noopener">
+          <img src="tokyo_screen.png" alt="tokyo_screen.png" title="tokyo_screen.png" loading="lazy">
+        </a>
+        <a class="card" href="tryptic.jpg" target="_blank" rel="noopener">
+          <img src="tryptic.jpg" alt="tryptic.jpg" title="tryptic.jpg" loading="lazy">
+        </a>
+        <a class="card" href="téléchargement.png" target="_blank" rel="noopener">
+          <img src="téléchargement.png" alt="téléchargement.png" title="téléchargement.png" loading="lazy">
+        </a>
+        <a class="card" href="urban_nights-1920x1200.jpg" target="_blank" rel="noopener">
+          <img src="urban_nights-1920x1200.jpg" alt="urban_nights-1920x1200.jpg" title="urban_nights-1920x1200.jpg" loading="lazy">
+        </a>
+        <a class="card" href="view_from_burj_khalifa_dubai-1920x1200.jpg" target="_blank" rel="noopener">
+          <img src="view_from_burj_khalifa_dubai-1920x1200.jpg" alt="view_from_burj_khalifa_dubai-1920x1200.jpg" title="view_from_burj_khalifa_dubai-1920x1200.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallhaven-24528.jpg" target="_blank" rel="noopener">
+          <img src="wallhaven-24528.jpg" alt="wallhaven-24528.jpg" title="wallhaven-24528.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallhaven-31184.jpg" target="_blank" rel="noopener">
+          <img src="wallhaven-31184.jpg" alt="wallhaven-31184.jpg" title="wallhaven-31184.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallhaven-51202.jpg" target="_blank" rel="noopener">
+          <img src="wallhaven-51202.jpg" alt="wallhaven-51202.jpg" title="wallhaven-51202.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallhaven-6463.jpg" target="_blank" rel="noopener">
+          <img src="wallhaven-6463.jpg" alt="wallhaven-6463.jpg" title="wallhaven-6463.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallhaven-9293.jpg" target="_blank" rel="noopener">
+          <img src="wallhaven-9293.jpg" alt="wallhaven-9293.jpg" title="wallhaven-9293.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-1283158.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-1283158.jpg" alt="wallpaper-1283158.jpg" title="wallpaper-1283158.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-169394.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-169394.jpg" alt="wallpaper-169394.jpg" title="wallpaper-169394.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-1851645.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-1851645.jpg" alt="wallpaper-1851645.jpg" title="wallpaper-1851645.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-1851646.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-1851646.jpg" alt="wallpaper-1851646.jpg" title="wallpaper-1851646.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-1851653.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-1851653.jpg" alt="wallpaper-1851653.jpg" title="wallpaper-1851653.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-2256134.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-2256134.jpg" alt="wallpaper-2256134.jpg" title="wallpaper-2256134.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-2268276.png" target="_blank" rel="noopener">
+          <img src="wallpaper-2268276.png" alt="wallpaper-2268276.png" title="wallpaper-2268276.png" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-2304328.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-2304328.jpg" alt="wallpaper-2304328.jpg" title="wallpaper-2304328.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-2372228.png" target="_blank" rel="noopener">
+          <img src="wallpaper-2372228.png" alt="wallpaper-2372228.png" title="wallpaper-2372228.png" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-249962.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-249962.jpg" alt="wallpaper-249962.jpg" title="wallpaper-249962.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-3109.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-3109.jpg" alt="wallpaper-3109.jpg" title="wallpaper-3109.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-316359.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-316359.jpg" alt="wallpaper-316359.jpg" title="wallpaper-316359.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-435141.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-435141.jpg" alt="wallpaper-435141.jpg" title="wallpaper-435141.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-6294.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-6294.jpg" alt="wallpaper-6294.jpg" title="wallpaper-6294.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-634997.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-634997.jpg" alt="wallpaper-634997.jpg" title="wallpaper-634997.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-636602.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-636602.jpg" alt="wallpaper-636602.jpg" title="wallpaper-636602.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-850991.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-850991.jpg" alt="wallpaper-850991.jpg" title="wallpaper-850991.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-867851.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-867851.jpg" alt="wallpaper-867851.jpg" title="wallpaper-867851.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-927002.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-927002.jpg" alt="wallpaper-927002.jpg" title="wallpaper-927002.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-929206.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-929206.jpg" alt="wallpaper-929206.jpg" title="wallpaper-929206.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wallpaper-964776.jpg" target="_blank" rel="noopener">
+          <img src="wallpaper-964776.jpg" alt="wallpaper-964776.jpg" title="wallpaper-964776.jpg" loading="lazy">
+        </a>
+        <a class="card" href="william_r_bennett_bridge-1920x1200.jpg" target="_blank" rel="noopener">
+          <img src="william_r_bennett_bridge-1920x1200.jpg" alt="william_r_bennett_bridge-1920x1200.jpg" title="william_r_bennett_bridge-1920x1200.jpg" loading="lazy">
+        </a>
+        <a class="card" href="world-trade-world-trade-center-new-york-usa-dd4f99492db760da05e847db858e13e3.jpg" target="_blank" rel="noopener">
+          <img src="world-trade-world-trade-center-new-york-usa-dd4f99492db760da05e847db858e13e3.jpg" alt="world-trade-world-trade-center-new-york-usa-dd4f99492db760da05e847db858e13e3.jpg" title="world-trade-world-trade-center-new-york-usa-dd4f99492db760da05e847db858e13e3.jpg" loading="lazy">
+        </a>
+        <a class="card" href="wp_2880.jpg" target="_blank" rel="noopener">
+          <img src="wp_2880.jpg" alt="wp_2880.jpg" title="wp_2880.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="64Kb2">
+    <details open>
+      <summary>
+        <span class="folder-title">64Kb2</span>
+        <span class="count">30 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="64Kb2/106390.gif" target="_blank" rel="noopener">
+          <img src="64Kb2/106390.gif" alt="106390.gif" title="106390.gif" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/1725528389129.jpeg" target="_blank" rel="noopener">
+          <img src="64Kb2/1725528389129.jpeg" alt="1725528389129.jpeg" title="1725528389129.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/2XMFLvJeo9SPZIVCUxQDqDcGRnr-desktop.jpg" target="_blank" rel="noopener">
+          <img src="64Kb2/2XMFLvJeo9SPZIVCUxQDqDcGRnr-desktop.jpg" alt="2XMFLvJeo9SPZIVCUxQDqDcGRnr-desktop.jpg" title="2XMFLvJeo9SPZIVCUxQDqDcGRnr-desktop.jpg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/464805143_1093895188766757_5449737989079093208_n.jpg" target="_blank" rel="noopener">
+          <img src="64Kb2/464805143_1093895188766757_5449737989079093208_n.jpg" alt="464805143_1093895188766757_5449737989079093208_n.jpg" title="464805143_1093895188766757_5449737989079093208_n.jpg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/PLEASE-USE-2014-08-11_Hank_Design_Jdeamer_005.jpg" target="_blank" rel="noopener">
+          <img src="64Kb2/PLEASE-USE-2014-08-11_Hank_Design_Jdeamer_005.jpg" alt="PLEASE-USE-2014-08-11_Hank_Design_Jdeamer_005.jpg" title="PLEASE-USE-2014-08-11_Hank_Design_Jdeamer_005.jpg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/Screenshot_2024-09-08_at_08.09.22.webp" target="_blank" rel="noopener">
+          <img src="64Kb2/Screenshot_2024-09-08_at_08.09.22.webp" alt="Screenshot_2024-09-08_at_08.09.22.webp" title="Screenshot_2024-09-08_at_08.09.22.webp" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/Waikiki%20Wabbit%2015.jpg" target="_blank" rel="noopener">
+          <img src="64Kb2/Waikiki%20Wabbit%2015.jpg" alt="Waikiki Wabbit 15.jpg" title="Waikiki Wabbit 15.jpg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/Waikiki%20Wabbit%2016.jpg" target="_blank" rel="noopener">
+          <img src="64Kb2/Waikiki%20Wabbit%2016.jpg" alt="Waikiki Wabbit 16.jpg" title="Waikiki Wabbit 16.jpg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/Waikiki%20Wabbit%2017.jpg" target="_blank" rel="noopener">
+          <img src="64Kb2/Waikiki%20Wabbit%2017.jpg" alt="Waikiki Wabbit 17.jpg" title="Waikiki Wabbit 17.jpg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/artwork.webp" target="_blank" rel="noopener">
+          <img src="64Kb2/artwork.webp" alt="artwork.webp" title="artwork.webp" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/b4d1b21ee0d284dbad211bf35fca0bc6.jpg" target="_blank" rel="noopener">
+          <img src="64Kb2/b4d1b21ee0d284dbad211bf35fca0bc6.jpg" alt="b4d1b21ee0d284dbad211bf35fca0bc6.jpg" title="b4d1b21ee0d284dbad211bf35fca0bc6.jpg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/best-islands-in-vietnam-ly-son.webp" target="_blank" rel="noopener">
+          <img src="64Kb2/best-islands-in-vietnam-ly-son.webp" alt="best-islands-in-vietnam-ly-son.webp" title="best-islands-in-vietnam-ly-son.webp" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/cartoon-illustration-forest-with-trees-road-with-bird-flying-sky_670382-362964.avif" target="_blank" rel="noopener">
+          <img src="64Kb2/cartoon-illustration-forest-with-trees-road-with-bird-flying-sky_670382-362964.avif" alt="cartoon-illustration-forest-with-trees-road-with-bird-flying-sky_670382-362964.avif" title="cartoon-illustration-forest-with-trees-road-with-bird-flying-sky_670382-362964.avif" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/flat-design-low-poly-nature-illustration_23-2150506282.jpg" target="_blank" rel="noopener">
+          <img src="64Kb2/flat-design-low-poly-nature-illustration_23-2150506282.jpg" alt="flat-design-low-poly-nature-illustration_23-2150506282.jpg" title="flat-design-low-poly-nature-illustration_23-2150506282.jpg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/images.jpeg" target="_blank" rel="noopener">
+          <img src="64Kb2/images.jpeg" alt="images.jpeg" title="images.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/landscape-illustration-nature-cartoon-fantasy-background-sky-scene-art-design-game-fantastic_597121-22959.avif" target="_blank" rel="noopener">
+          <img src="64Kb2/landscape-illustration-nature-cartoon-fantasy-background-sky-scene-art-design-game-fantastic_597121-22959.avif" alt="landscape-illustration-nature-cartoon-fantasy-background-sky-scene-art-design-game-fantastic_597121-22959.avif" title="landscape-illustration-nature-cartoon-fantasy-background-sky-scene-art-design-game-fantastic_597121-22959.avif" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/painting-canvas-artwork-land-oil-watercolor-artistic-meadow-brush-scenery-scene-village-wallpaper_597121-12355.jpg" target="_blank" rel="noopener">
+          <img src="64Kb2/painting-canvas-artwork-land-oil-watercolor-artistic-meadow-brush-scenery-scene-village-wallpaper_597121-12355.jpg" alt="painting-canvas-artwork-land-oil-watercolor-artistic-meadow-brush-scenery-scene-village-wallpaper_597121-12355.jpg" title="painting-canvas-artwork-land-oil-watercolor-artistic-meadow-brush-scenery-scene-village-wallpaper_597121-12355.jpg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/plants.png" target="_blank" rel="noopener">
+          <img src="64Kb2/plants.png" alt="plants.png" title="plants.png" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/road-in-autumn-forest-vector.jpg" target="_blank" rel="noopener">
+          <img src="64Kb2/road-in-autumn-forest-vector.jpg" alt="road-in-autumn-forest-vector.jpg" title="road-in-autumn-forest-vector.jpg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/rocky-island-with-green-vegetation-sea-maldives-tropical-island_124507-33095.avif" target="_blank" rel="noopener">
+          <img src="64Kb2/rocky-island-with-green-vegetation-sea-maldives-tropical-island_124507-33095.avif" alt="rocky-island-with-green-vegetation-sea-maldives-tropical-island_124507-33095.avif" title="rocky-island-with-green-vegetation-sea-maldives-tropical-island_124507-33095.avif" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/shore.jpeg" target="_blank" rel="noopener">
+          <img src="64Kb2/shore.jpeg" alt="shore.jpeg" title="shore.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/shore2.jpeg" target="_blank" rel="noopener">
+          <img src="64Kb2/shore2.jpeg" alt="shore2.jpeg" title="shore2.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/shore3.jpeg" target="_blank" rel="noopener">
+          <img src="64Kb2/shore3.jpeg" alt="shore3.jpeg" title="shore3.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/shore4.jpeg" target="_blank" rel="noopener">
+          <img src="64Kb2/shore4.jpeg" alt="shore4.jpeg" title="shore4.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/shore5.jpeg" target="_blank" rel="noopener">
+          <img src="64Kb2/shore5.jpeg" alt="shore5.jpeg" title="shore5.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/shore6.jpeg" target="_blank" rel="noopener">
+          <img src="64Kb2/shore6.jpeg" alt="shore6.jpeg" title="shore6.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/th%20(1).jpeg" target="_blank" rel="noopener">
+          <img src="64Kb2/th%20(1).jpeg" alt="th (1).jpeg" title="th (1).jpeg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/th.jpeg" target="_blank" rel="noopener">
+          <img src="64Kb2/th.jpeg" alt="th.jpeg" title="th.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/the-art-of-looney-tunes-backgrounds-v0-k9p2arwg5k6b1.webp" target="_blank" rel="noopener">
+          <img src="64Kb2/the-art-of-looney-tunes-backgrounds-v0-k9p2arwg5k6b1.webp" alt="the-art-of-looney-tunes-backgrounds-v0-k9p2arwg5k6b1.webp" title="the-art-of-looney-tunes-backgrounds-v0-k9p2arwg5k6b1.webp" loading="lazy">
+        </a>
+        <a class="card" href="64Kb2/tree-with-green-leaves-top-it_951778-103508.avif" target="_blank" rel="noopener">
+          <img src="64Kb2/tree-with-green-leaves-top-it_951778-103508.avif" alt="tree-with-green-leaves-top-it_951778-103508.avif" title="tree-with-green-leaves-top-it_951778-103508.avif" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="Brutalism">
+    <details open>
+      <summary>
+        <span class="folder-title">Brutalism</span>
+        <span class="count">41 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="Brutalism/1750580204407.jpeg" target="_blank" rel="noopener">
+          <img src="Brutalism/1750580204407.jpeg" alt="1750580204407.jpeg" title="1750580204407.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/1750580204516.jpeg" target="_blank" rel="noopener">
+          <img src="Brutalism/1750580204516.jpeg" alt="1750580204516.jpeg" title="1750580204516.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/1b801b2b53ad40e7aa3fb92e48fc8b42.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/1b801b2b53ad40e7aa3fb92e48fc8b42.jpg" alt="1b801b2b53ad40e7aa3fb92e48fc8b42.jpg" title="1b801b2b53ad40e7aa3fb92e48fc8b42.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/COUV-ARTICLES-1920x1080-48-1024x576.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/COUV-ARTICLES-1920x1080-48-1024x576.jpg" alt="COUV-ARTICLES-1920x1080-48-1024x576.jpg" title="COUV-ARTICLES-1920x1080-48-1024x576.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/NATIONAL-THEATER-BUILDING-LONDON-BLACK-WHITE-LONG-EXPOSURE-0912-1000PX-1.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/NATIONAL-THEATER-BUILDING-LONDON-BLACK-WHITE-LONG-EXPOSURE-0912-1000PX-1.jpg" alt="NATIONAL-THEATER-BUILDING-LONDON-BLACK-WHITE-LONG-EXPOSURE-0912-1000PX-1.jpg" title="NATIONAL-THEATER-BUILDING-LONDON-BLACK-WHITE-LONG-EXPOSURE-0912-1000PX-1.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/Petite%20ceinture_couv.webp" target="_blank" rel="noopener">
+          <img src="Brutalism/Petite%20ceinture_couv.webp" alt="Petite ceinture_couv.webp" title="Petite ceinture_couv.webp" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/The-Brutalist-v3-png.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/The-Brutalist-v3-png.jpg" alt="The-Brutalist-v3-png.jpg" title="The-Brutalist-v3-png.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/_6.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/_6.jpg" alt="_6.jpg" title="_6.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/adobestock-212436461-960x640.jpeg" target="_blank" rel="noopener">
+          <img src="Brutalism/adobestock-212436461-960x640.jpeg" alt="adobestock-212436461-960x640.jpeg" title="adobestock-212436461-960x640.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreia3afcaok3wledn7tzorhmplkejnpmol2px6qkyviyb22opaowapa.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreia3afcaok3wledn7tzorhmplkejnpmol2px6qkyviyb22opaowapa.jpg" alt="bafkreia3afcaok3wledn7tzorhmplkejnpmol2px6qkyviyb22opaowapa.jpg" title="bafkreia3afcaok3wledn7tzorhmplkejnpmol2px6qkyviyb22opaowapa.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreiagx6vxg4d725jxkwlhj2imgnt3br5fp76c75w6qhi2kudayjoytm.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreiagx6vxg4d725jxkwlhj2imgnt3br5fp76c75w6qhi2kudayjoytm.jpg" alt="bafkreiagx6vxg4d725jxkwlhj2imgnt3br5fp76c75w6qhi2kudayjoytm.jpg" title="bafkreiagx6vxg4d725jxkwlhj2imgnt3br5fp76c75w6qhi2kudayjoytm.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreiazfzimkrgtldxhtjmnjuxcw2lfoi4tgoshqcogxp6klaf6bfahj4.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreiazfzimkrgtldxhtjmnjuxcw2lfoi4tgoshqcogxp6klaf6bfahj4.jpg" alt="bafkreiazfzimkrgtldxhtjmnjuxcw2lfoi4tgoshqcogxp6klaf6bfahj4.jpg" title="bafkreiazfzimkrgtldxhtjmnjuxcw2lfoi4tgoshqcogxp6klaf6bfahj4.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreibkgr2pebu6bacqv7kcfiyrhbvw4xhblu7gfgdmmrfvo2uzoju37i.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreibkgr2pebu6bacqv7kcfiyrhbvw4xhblu7gfgdmmrfvo2uzoju37i.jpg" alt="bafkreibkgr2pebu6bacqv7kcfiyrhbvw4xhblu7gfgdmmrfvo2uzoju37i.jpg" title="bafkreibkgr2pebu6bacqv7kcfiyrhbvw4xhblu7gfgdmmrfvo2uzoju37i.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreibuacmrx45ycjkyyscimahe6wfzwgp2dzbagppqmwibi5jf4dbgaa.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreibuacmrx45ycjkyyscimahe6wfzwgp2dzbagppqmwibi5jf4dbgaa.jpg" alt="bafkreibuacmrx45ycjkyyscimahe6wfzwgp2dzbagppqmwibi5jf4dbgaa.jpg" title="bafkreibuacmrx45ycjkyyscimahe6wfzwgp2dzbagppqmwibi5jf4dbgaa.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreicb6ihc4vwu3gbzkmtlpsv7pm5h76if3y2vh5a5pyemi66mekgpfm.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreicb6ihc4vwu3gbzkmtlpsv7pm5h76if3y2vh5a5pyemi66mekgpfm.jpg" alt="bafkreicb6ihc4vwu3gbzkmtlpsv7pm5h76if3y2vh5a5pyemi66mekgpfm.jpg" title="bafkreicb6ihc4vwu3gbzkmtlpsv7pm5h76if3y2vh5a5pyemi66mekgpfm.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreicgbqxenbpgw7gbxnm2wybfsoxamvstdpgqefzjcfo54kxt5up6da.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreicgbqxenbpgw7gbxnm2wybfsoxamvstdpgqefzjcfo54kxt5up6da.jpg" alt="bafkreicgbqxenbpgw7gbxnm2wybfsoxamvstdpgqefzjcfo54kxt5up6da.jpg" title="bafkreicgbqxenbpgw7gbxnm2wybfsoxamvstdpgqefzjcfo54kxt5up6da.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreichizbou66fvpyrdyti6tnyscjxjs54ijcqug6mthqsls6qrqzzsq.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreichizbou66fvpyrdyti6tnyscjxjs54ijcqug6mthqsls6qrqzzsq.jpg" alt="bafkreichizbou66fvpyrdyti6tnyscjxjs54ijcqug6mthqsls6qrqzzsq.jpg" title="bafkreichizbou66fvpyrdyti6tnyscjxjs54ijcqug6mthqsls6qrqzzsq.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreid23evggisfxbkxwxsqzt4nk3k2fwz5wtqwc22qkdddsbizi4mdpq.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreid23evggisfxbkxwxsqzt4nk3k2fwz5wtqwc22qkdddsbizi4mdpq.jpg" alt="bafkreid23evggisfxbkxwxsqzt4nk3k2fwz5wtqwc22qkdddsbizi4mdpq.jpg" title="bafkreid23evggisfxbkxwxsqzt4nk3k2fwz5wtqwc22qkdddsbizi4mdpq.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreidycaubsmcikiah5if2qnla4g3fc2lokiourjtslf6bqthylyxgzi.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreidycaubsmcikiah5if2qnla4g3fc2lokiourjtslf6bqthylyxgzi.jpg" alt="bafkreidycaubsmcikiah5if2qnla4g3fc2lokiourjtslf6bqthylyxgzi.jpg" title="bafkreidycaubsmcikiah5if2qnla4g3fc2lokiourjtslf6bqthylyxgzi.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreiecltlqdhuiircz6sok76yloxbngtpvjyvgze77nkdchnffoxujje.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreiecltlqdhuiircz6sok76yloxbngtpvjyvgze77nkdchnffoxujje.jpg" alt="bafkreiecltlqdhuiircz6sok76yloxbngtpvjyvgze77nkdchnffoxujje.jpg" title="bafkreiecltlqdhuiircz6sok76yloxbngtpvjyvgze77nkdchnffoxujje.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreiefhdmdelrmrxdmxo2hogsb7d5oftet63xugysef3lyzk5l7nzeoy.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreiefhdmdelrmrxdmxo2hogsb7d5oftet63xugysef3lyzk5l7nzeoy.jpg" alt="bafkreiefhdmdelrmrxdmxo2hogsb7d5oftet63xugysef3lyzk5l7nzeoy.jpg" title="bafkreiefhdmdelrmrxdmxo2hogsb7d5oftet63xugysef3lyzk5l7nzeoy.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreifkvq37yzj3nzptrukkigh2xgktt4btwvrtethdpnjewzd4pz44iq.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreifkvq37yzj3nzptrukkigh2xgktt4btwvrtethdpnjewzd4pz44iq.jpg" alt="bafkreifkvq37yzj3nzptrukkigh2xgktt4btwvrtethdpnjewzd4pz44iq.jpg" title="bafkreifkvq37yzj3nzptrukkigh2xgktt4btwvrtethdpnjewzd4pz44iq.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreig75fb7bofeyducq2qlsvhpztil4bklwpdggud6cjrhgebk7mssoi.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreig75fb7bofeyducq2qlsvhpztil4bklwpdggud6cjrhgebk7mssoi.jpg" alt="bafkreig75fb7bofeyducq2qlsvhpztil4bklwpdggud6cjrhgebk7mssoi.jpg" title="bafkreig75fb7bofeyducq2qlsvhpztil4bklwpdggud6cjrhgebk7mssoi.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreigd2nbjpx544adyvyhhqxxuowcvrb4q63m6mgoh33kai73sthpn4u.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreigd2nbjpx544adyvyhhqxxuowcvrb4q63m6mgoh33kai73sthpn4u.jpg" alt="bafkreigd2nbjpx544adyvyhhqxxuowcvrb4q63m6mgoh33kai73sthpn4u.jpg" title="bafkreigd2nbjpx544adyvyhhqxxuowcvrb4q63m6mgoh33kai73sthpn4u.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreighlc2swyvzwl6oeurgbsqazu7ojp7jtpfi33a7t3uggkd34xhgnu.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreighlc2swyvzwl6oeurgbsqazu7ojp7jtpfi33a7t3uggkd34xhgnu.jpg" alt="bafkreighlc2swyvzwl6oeurgbsqazu7ojp7jtpfi33a7t3uggkd34xhgnu.jpg" title="bafkreighlc2swyvzwl6oeurgbsqazu7ojp7jtpfi33a7t3uggkd34xhgnu.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreigif53z7y36bl6l6otrmddnokexfw2fl2bhomixo4f77tjnvsqhqe.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreigif53z7y36bl6l6otrmddnokexfw2fl2bhomixo4f77tjnvsqhqe.jpg" alt="bafkreigif53z7y36bl6l6otrmddnokexfw2fl2bhomixo4f77tjnvsqhqe.jpg" title="bafkreigif53z7y36bl6l6otrmddnokexfw2fl2bhomixo4f77tjnvsqhqe.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreigkt3n4toty6hh6jqwm2lvpvpdqerkcev3namfajrv6vds7vo6o7u.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreigkt3n4toty6hh6jqwm2lvpvpdqerkcev3namfajrv6vds7vo6o7u.jpg" alt="bafkreigkt3n4toty6hh6jqwm2lvpvpdqerkcev3namfajrv6vds7vo6o7u.jpg" title="bafkreigkt3n4toty6hh6jqwm2lvpvpdqerkcev3namfajrv6vds7vo6o7u.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreihdl5oo7hwrgu2wpz46d5dch6newsw6rs4qpfrxa72xg2o7wdxcqu.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreihdl5oo7hwrgu2wpz46d5dch6newsw6rs4qpfrxa72xg2o7wdxcqu.jpg" alt="bafkreihdl5oo7hwrgu2wpz46d5dch6newsw6rs4qpfrxa72xg2o7wdxcqu.jpg" title="bafkreihdl5oo7hwrgu2wpz46d5dch6newsw6rs4qpfrxa72xg2o7wdxcqu.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreihrndlodwottl6eco2lid3d6i3v27qxspgkmf7lnvyz26iq32fcqy.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreihrndlodwottl6eco2lid3d6i3v27qxspgkmf7lnvyz26iq32fcqy.jpg" alt="bafkreihrndlodwottl6eco2lid3d6i3v27qxspgkmf7lnvyz26iq32fcqy.jpg" title="bafkreihrndlodwottl6eco2lid3d6i3v27qxspgkmf7lnvyz26iq32fcqy.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/bafkreihzeoqqrpeuec34t3kcvwwchwphhg4fhofoo2dfyrltiumigrutay.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/bafkreihzeoqqrpeuec34t3kcvwwchwphhg4fhofoo2dfyrltiumigrutay.jpg" alt="bafkreihzeoqqrpeuec34t3kcvwwchwphhg4fhofoo2dfyrltiumigrutay.jpg" title="bafkreihzeoqqrpeuec34t3kcvwwchwphhg4fhofoo2dfyrltiumigrutay.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/brutalist-society-2025-02-06-cover.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/brutalist-society-2025-02-06-cover.jpg" alt="brutalist-society-2025-02-06-cover.jpg" title="brutalist-society-2025-02-06-cover.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/eb3f5a3718957d80e716020bf3802a76.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/eb3f5a3718957d80e716020bf3802a76.jpg" alt="eb3f5a3718957d80e716020bf3802a76.jpg" title="eb3f5a3718957d80e716020bf3802a76.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/f3a000118378187.60881a14424b4.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/f3a000118378187.60881a14424b4.jpg" alt="f3a000118378187.60881a14424b4.jpg" title="f3a000118378187.60881a14424b4.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/gettyimages-1333761930-2048x2048.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/gettyimages-1333761930-2048x2048.jpg" alt="gettyimages-1333761930-2048x2048.jpg" title="gettyimages-1333761930-2048x2048.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/gettyimages-2172809741-1024x1024.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/gettyimages-2172809741-1024x1024.jpg" alt="gettyimages-2172809741-1024x1024.jpg" title="gettyimages-2172809741-1024x1024.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/gettyimages-846300054-2048x2048.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/gettyimages-846300054-2048x2048.jpg" alt="gettyimages-846300054-2048x2048.jpg" title="gettyimages-846300054-2048x2048.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/images.jpeg" target="_blank" rel="noopener">
+          <img src="Brutalism/images.jpeg" alt="images.jpeg" title="images.jpeg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/san-diego-brutalism-william-dunigan.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/san-diego-brutalism-william-dunigan.jpg" alt="san-diego-brutalism-william-dunigan.jpg" title="san-diego-brutalism-william-dunigan.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/ssr.png" target="_blank" rel="noopener">
+          <img src="Brutalism/ssr.png" alt="ssr.png" title="ssr.png" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/stock-photo-brutalist-concrete-external-stair-towers-on-a-hospital-building-in-porto-portugal-2365203969.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/stock-photo-brutalist-concrete-external-stair-towers-on-a-hospital-building-in-porto-portugal-2365203969.jpg" alt="stock-photo-brutalist-concrete-external-stair-towers-on-a-hospital-building-in-porto-portugal-2365203969.jpg" title="stock-photo-brutalist-concrete-external-stair-towers-on-a-hospital-building-in-porto-portugal-2365203969.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Brutalism/ymy09ngmos281.jpg" target="_blank" rel="noopener">
+          <img src="Brutalism/ymy09ngmos281.jpg" alt="ymy09ngmos281.jpg" title="ymy09ngmos281.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="Lighting">
+    <details open>
+      <summary>
+        <span class="folder-title">Lighting</span>
+        <span class="count">1 image</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="Lighting/SamuraiJack.jpg" target="_blank" rel="noopener">
+          <img src="Lighting/SamuraiJack.jpg" alt="SamuraiJack.jpg" title="SamuraiJack.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="MirrorsEdge">
+    <details open>
+      <summary>
+        <span class="folder-title">MirrorsEdge</span>
+        <span class="count">42 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="MirrorsEdge/514334017_1268512687971672_8075793245169697601_n.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/514334017_1268512687971672_8075793245169697601_n.jpg" alt="514334017_1268512687971672_8075793245169697601_n.jpg" title="514334017_1268512687971672_8075793245169697601_n.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Mirror__039_s_Edge_architecture_buildings_1920x1080.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Mirror__039_s_Edge_architecture_buildings_1920x1080.jpg" alt="Mirror__039_s_Edge_architecture_buildings_1920x1080.jpg" title="Mirror__039_s_Edge_architecture_buildings_1920x1080.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Mirrors_Edge-1080p-Wallpaper-44b-NEW-EDEN-MALL-INTERIOR.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Mirrors_Edge-1080p-Wallpaper-44b-NEW-EDEN-MALL-INTERIOR.jpg" alt="Mirrors_Edge-1080p-Wallpaper-44b-NEW-EDEN-MALL-INTERIOR.jpg" title="Mirrors_Edge-1080p-Wallpaper-44b-NEW-EDEN-MALL-INTERIOR.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Mirrors_Edge_1920x1080%20(1).jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Mirrors_Edge_1920x1080%20(1).jpg" alt="Mirrors_Edge_1920x1080 (1).jpg" title="Mirrors_Edge_1920x1080 (1).jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Mirrors_Edge_1920x1080%20(2).jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Mirrors_Edge_1920x1080%20(2).jpg" alt="Mirrors_Edge_1920x1080 (2).jpg" title="Mirrors_Edge_1920x1080 (2).jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Mirrors_Edge_1920x1080.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Mirrors_Edge_1920x1080.jpg" alt="Mirrors_Edge_1920x1080.jpg" title="Mirrors_Edge_1920x1080.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/RUSIA3VALNBFHEXFBUMAC576TI.png" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/RUSIA3VALNBFHEXFBUMAC576TI.png" alt="RUSIA3VALNBFHEXFBUMAC576TI.png" title="RUSIA3VALNBFHEXFBUMAC576TI.png" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2018.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2018.jpg" alt="Wallpaper 18.jpg" title="Wallpaper 18.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2019.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2019.jpg" alt="Wallpaper 19.jpg" title="Wallpaper 19.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%202.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%202.jpg" alt="Wallpaper 2.jpg" title="Wallpaper 2.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2020.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2020.jpg" alt="Wallpaper 20.jpg" title="Wallpaper 20.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2021.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2021.jpg" alt="Wallpaper 21.jpg" title="Wallpaper 21.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2022.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2022.jpg" alt="Wallpaper 22.jpg" title="Wallpaper 22.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2023.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2023.jpg" alt="Wallpaper 23.jpg" title="Wallpaper 23.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2024.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2024.jpg" alt="Wallpaper 24.jpg" title="Wallpaper 24.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2025.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2025.jpg" alt="Wallpaper 25.jpg" title="Wallpaper 25.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2029.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2029.jpg" alt="Wallpaper 29.jpg" title="Wallpaper 29.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2030.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2030.jpg" alt="Wallpaper 30.jpg" title="Wallpaper 30.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2031.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2031.jpg" alt="Wallpaper 31.jpg" title="Wallpaper 31.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2032.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2032.jpg" alt="Wallpaper 32.jpg" title="Wallpaper 32.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2033.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2033.jpg" alt="Wallpaper 33.jpg" title="Wallpaper 33.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2035.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2035.jpg" alt="Wallpaper 35.jpg" title="Wallpaper 35.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2036.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2036.jpg" alt="Wallpaper 36.jpg" title="Wallpaper 36.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2039.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2039.jpg" alt="Wallpaper 39.jpg" title="Wallpaper 39.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%204.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%204.jpg" alt="Wallpaper 4.jpg" title="Wallpaper 4.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2040.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2040.jpg" alt="Wallpaper 40.jpg" title="Wallpaper 40.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2044.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2044.jpg" alt="Wallpaper 44.jpg" title="Wallpaper 44.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2048.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2048.jpg" alt="Wallpaper 48.jpg" title="Wallpaper 48.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2049.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2049.jpg" alt="Wallpaper 49.jpg" title="Wallpaper 49.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2051.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2051.jpg" alt="Wallpaper 51.jpg" title="Wallpaper 51.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2052.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2052.jpg" alt="Wallpaper 52.jpg" title="Wallpaper 52.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2053.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2053.jpg" alt="Wallpaper 53.jpg" title="Wallpaper 53.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2058.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2058.jpg" alt="Wallpaper 58.jpg" title="Wallpaper 58.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%206.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%206.jpg" alt="Wallpaper 6.jpg" title="Wallpaper 6.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2062.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2062.jpg" alt="Wallpaper 62.jpg" title="Wallpaper 62.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2063.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2063.jpg" alt="Wallpaper 63.jpg" title="Wallpaper 63.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%2065.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%2065.jpg" alt="Wallpaper 65.jpg" title="Wallpaper 65.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/Wallpaper%207.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Wallpaper%207.jpg" alt="Wallpaper 7.jpg" title="Wallpaper 7.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/cityscapes_night_mirrors_edge__1920x1200_artwallpaperhi.com.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/cityscapes_night_mirrors_edge__1920x1200_artwallpaperhi.com.jpg" alt="cityscapes_night_mirrors_edge__1920x1200_artwallpaperhi.com.jpg" title="cityscapes_night_mirrors_edge__1920x1200_artwallpaperhi.com.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/interior_room_beautiful_mirrors_edge_blue_1920x1080.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/interior_room_beautiful_mirrors_edge_blue_1920x1080.jpg" alt="interior_room_beautiful_mirrors_edge_blue_1920x1080.jpg" title="interior_room_beautiful_mirrors_edge_blue_1920x1080.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/mirrors_edge_city_by_fonso_sm-d5efxwy.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/mirrors_edge_city_by_fonso_sm-d5efxwy.jpg" alt="mirrors_edge_city_by_fonso_sm-d5efxwy.jpg" title="mirrors_edge_city_by_fonso_sm-d5efxwy.jpg" loading="lazy">
+        </a>
+        <a class="card" href="MirrorsEdge/mirrorsedge201205021150.png" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/mirrorsedge201205021150.png" alt="mirrorsedge201205021150.png" title="mirrorsedge201205021150.png" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="Wipeput">
+    <details open>
+      <summary>
+        <span class="folder-title">Wipeput</span>
+        <span class="count">21 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="Wipeput/bafkreiaq7uo7ldednho7xsdxq54snfhylm6kkbor2klha35ofzkxrddvf4.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreiaq7uo7ldednho7xsdxq54snfhylm6kkbor2klha35ofzkxrddvf4.jpg" alt="bafkreiaq7uo7ldednho7xsdxq54snfhylm6kkbor2klha35ofzkxrddvf4.jpg" title="bafkreiaq7uo7ldednho7xsdxq54snfhylm6kkbor2klha35ofzkxrddvf4.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreiatkjfer7ivqu2imrp7xqpn5hejq5pf23ijmuwvhv47p5qkeacisq.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreiatkjfer7ivqu2imrp7xqpn5hejq5pf23ijmuwvhv47p5qkeacisq.jpg" alt="bafkreiatkjfer7ivqu2imrp7xqpn5hejq5pf23ijmuwvhv47p5qkeacisq.jpg" title="bafkreiatkjfer7ivqu2imrp7xqpn5hejq5pf23ijmuwvhv47p5qkeacisq.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreiauajwaw5xdcqsij2o4wez7kpn77rywgakrb623xpw3atq2soixxq.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreiauajwaw5xdcqsij2o4wez7kpn77rywgakrb623xpw3atq2soixxq.jpg" alt="bafkreiauajwaw5xdcqsij2o4wez7kpn77rywgakrb623xpw3atq2soixxq.jpg" title="bafkreiauajwaw5xdcqsij2o4wez7kpn77rywgakrb623xpw3atq2soixxq.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreibf3bngytfopw5orlj72iih52vctizckgsrim6bqtkshcuykotygm.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreibf3bngytfopw5orlj72iih52vctizckgsrim6bqtkshcuykotygm.jpg" alt="bafkreibf3bngytfopw5orlj72iih52vctizckgsrim6bqtkshcuykotygm.jpg" title="bafkreibf3bngytfopw5orlj72iih52vctizckgsrim6bqtkshcuykotygm.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreicko2o47oud6znujtrqawhmq7ldadzp6t6ghyctgvjairfp4zly5u.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreicko2o47oud6znujtrqawhmq7ldadzp6t6ghyctgvjairfp4zly5u.jpg" alt="bafkreicko2o47oud6znujtrqawhmq7ldadzp6t6ghyctgvjairfp4zly5u.jpg" title="bafkreicko2o47oud6znujtrqawhmq7ldadzp6t6ghyctgvjairfp4zly5u.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreicsa765xm4b24conlhyfd3zttp76zhnvhdys53mrgiy6jv2652lfq.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreicsa765xm4b24conlhyfd3zttp76zhnvhdys53mrgiy6jv2652lfq.jpg" alt="bafkreicsa765xm4b24conlhyfd3zttp76zhnvhdys53mrgiy6jv2652lfq.jpg" title="bafkreicsa765xm4b24conlhyfd3zttp76zhnvhdys53mrgiy6jv2652lfq.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreiczmpc47wonik732vhfk4bfm3zz5rhx2ko2s56hamcm2h4mzpnl2m.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreiczmpc47wonik732vhfk4bfm3zz5rhx2ko2s56hamcm2h4mzpnl2m.jpg" alt="bafkreiczmpc47wonik732vhfk4bfm3zz5rhx2ko2s56hamcm2h4mzpnl2m.jpg" title="bafkreiczmpc47wonik732vhfk4bfm3zz5rhx2ko2s56hamcm2h4mzpnl2m.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreiczvnrq26zgbxle27izjunfvrztrs7zosg7ahjbrp3ojplwyxedbi.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreiczvnrq26zgbxle27izjunfvrztrs7zosg7ahjbrp3ojplwyxedbi.jpg" alt="bafkreiczvnrq26zgbxle27izjunfvrztrs7zosg7ahjbrp3ojplwyxedbi.jpg" title="bafkreiczvnrq26zgbxle27izjunfvrztrs7zosg7ahjbrp3ojplwyxedbi.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreidpsghuju5wp6on57td3v2lhjhnzlze5jrcpl4ydu3zpjvxgxknze.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreidpsghuju5wp6on57td3v2lhjhnzlze5jrcpl4ydu3zpjvxgxknze.jpg" alt="bafkreidpsghuju5wp6on57td3v2lhjhnzlze5jrcpl4ydu3zpjvxgxknze.jpg" title="bafkreidpsghuju5wp6on57td3v2lhjhnzlze5jrcpl4ydu3zpjvxgxknze.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreidsoqwyopasiw37ubkuigjzcrde5b2drllcnv22mjg4czprcjht7q.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreidsoqwyopasiw37ubkuigjzcrde5b2drllcnv22mjg4czprcjht7q.jpg" alt="bafkreidsoqwyopasiw37ubkuigjzcrde5b2drllcnv22mjg4czprcjht7q.jpg" title="bafkreidsoqwyopasiw37ubkuigjzcrde5b2drllcnv22mjg4czprcjht7q.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreidvwqjskrruin4qcp5h5wd2ynvyiardwd4qtvqsya6ko7braognqe.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreidvwqjskrruin4qcp5h5wd2ynvyiardwd4qtvqsya6ko7braognqe.jpg" alt="bafkreidvwqjskrruin4qcp5h5wd2ynvyiardwd4qtvqsya6ko7braognqe.jpg" title="bafkreidvwqjskrruin4qcp5h5wd2ynvyiardwd4qtvqsya6ko7braognqe.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreie6ghvyaa4t6tsiygvvq66yrxu6stjjiupuwbgkw375ipirnai4ti.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreie6ghvyaa4t6tsiygvvq66yrxu6stjjiupuwbgkw375ipirnai4ti.jpg" alt="bafkreie6ghvyaa4t6tsiygvvq66yrxu6stjjiupuwbgkw375ipirnai4ti.jpg" title="bafkreie6ghvyaa4t6tsiygvvq66yrxu6stjjiupuwbgkw375ipirnai4ti.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreieduffmsmge2skvglsterzp6vcfnzcdcwxfxfrfx2w2uacffegcqu.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreieduffmsmge2skvglsterzp6vcfnzcdcwxfxfrfx2w2uacffegcqu.jpg" alt="bafkreieduffmsmge2skvglsterzp6vcfnzcdcwxfxfrfx2w2uacffegcqu.jpg" title="bafkreieduffmsmge2skvglsterzp6vcfnzcdcwxfxfrfx2w2uacffegcqu.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreieey6bpd4dupdslvhrqzrtanj5ljtgwzunr3yp46vrnkdnl2l3x5m.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreieey6bpd4dupdslvhrqzrtanj5ljtgwzunr3yp46vrnkdnl2l3x5m.jpg" alt="bafkreieey6bpd4dupdslvhrqzrtanj5ljtgwzunr3yp46vrnkdnl2l3x5m.jpg" title="bafkreieey6bpd4dupdslvhrqzrtanj5ljtgwzunr3yp46vrnkdnl2l3x5m.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreiezzqfaeivjnprqdottdayfvqxljvuphs2ujany5nxoukcbytfzwe.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreiezzqfaeivjnprqdottdayfvqxljvuphs2ujany5nxoukcbytfzwe.jpg" alt="bafkreiezzqfaeivjnprqdottdayfvqxljvuphs2ujany5nxoukcbytfzwe.jpg" title="bafkreiezzqfaeivjnprqdottdayfvqxljvuphs2ujany5nxoukcbytfzwe.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreifewwuddaqtieyngjlrgdjfxurydl5td2xjqzcwykunsth44mkl5e.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreifewwuddaqtieyngjlrgdjfxurydl5td2xjqzcwykunsth44mkl5e.jpg" alt="bafkreifewwuddaqtieyngjlrgdjfxurydl5td2xjqzcwykunsth44mkl5e.jpg" title="bafkreifewwuddaqtieyngjlrgdjfxurydl5td2xjqzcwykunsth44mkl5e.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreifycggwwqdwbkdqa75l5janqs64hkn6eafzmprfqoshvretjdnvqm.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreifycggwwqdwbkdqa75l5janqs64hkn6eafzmprfqoshvretjdnvqm.jpg" alt="bafkreifycggwwqdwbkdqa75l5janqs64hkn6eafzmprfqoshvretjdnvqm.jpg" title="bafkreifycggwwqdwbkdqa75l5janqs64hkn6eafzmprfqoshvretjdnvqm.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreigbzbjsqmxja6a7o6fqoddfczescbktbww3q5c3mtwsfyh7lgjo6y.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreigbzbjsqmxja6a7o6fqoddfczescbktbww3q5c3mtwsfyh7lgjo6y.jpg" alt="bafkreigbzbjsqmxja6a7o6fqoddfczescbktbww3q5c3mtwsfyh7lgjo6y.jpg" title="bafkreigbzbjsqmxja6a7o6fqoddfczescbktbww3q5c3mtwsfyh7lgjo6y.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreigk6mge47mi3ftsyk22apomcsf3rbwtjn2frqfcpeviipugcrrhtq.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreigk6mge47mi3ftsyk22apomcsf3rbwtjn2frqfcpeviipugcrrhtq.jpg" alt="bafkreigk6mge47mi3ftsyk22apomcsf3rbwtjn2frqfcpeviipugcrrhtq.jpg" title="bafkreigk6mge47mi3ftsyk22apomcsf3rbwtjn2frqfcpeviipugcrrhtq.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreigqakcxyfyhfibzuv36gmcfudsnjv3agiyoc3bp367252xdtj4j7q.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreigqakcxyfyhfibzuv36gmcfudsnjv3agiyoc3bp367252xdtj4j7q.jpg" alt="bafkreigqakcxyfyhfibzuv36gmcfudsnjv3agiyoc3bp367252xdtj4j7q.jpg" title="bafkreigqakcxyfyhfibzuv36gmcfudsnjv3agiyoc3bp367252xdtj4j7q.jpg" loading="lazy">
+        </a>
+        <a class="card" href="Wipeput/bafkreiho6t2touk7u37qiduz4rsoukrdvp3fcb22xnbksxwsnbzpxqyrgq.jpg" target="_blank" rel="noopener">
+          <img src="Wipeput/bafkreiho6t2touk7u37qiduz4rsoukrdvp3fcb22xnbksxwsnbzpxqyrgq.jpg" alt="bafkreiho6t2touk7u37qiduz4rsoukrdvp3fcb22xnbksxwsnbzpxqyrgq.jpg" title="bafkreiho6t2touk7u37qiduz4rsoukrdvp3fcb22xnbksxwsnbzpxqyrgq.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="bridges">
+    <details open>
+      <summary>
+        <span class="folder-title">bridges</span>
+        <span class="count">2 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="bridges/AIR-CRE-Los-Angeles-River-1288x724.jpg" target="_blank" rel="noopener">
+          <img src="bridges/AIR-CRE-Los-Angeles-River-1288x724.jpg" alt="AIR-CRE-Los-Angeles-River-1288x724.jpg" title="AIR-CRE-Los-Angeles-River-1288x724.jpg" loading="lazy">
+        </a>
+        <a class="card" href="bridges/cover.jpg" target="_blank" rel="noopener">
+          <img src="bridges/cover.jpg" alt="cover.jpg" title="cover.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="cartoon">
+    <details open>
+      <summary>
+        <span class="folder-title">cartoon</span>
+        <span class="count">28 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="cartoon/HHhouseMW.webp" target="_blank" rel="noopener">
+          <img src="cartoon/HHhouseMW.webp" alt="HHhouseMW.webp" title="HHhouseMW.webp" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/IGmwtest.webp" target="_blank" rel="noopener">
+          <img src="cartoon/IGmwtest.webp" alt="IGmwtest.webp" title="IGmwtest.webp" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/MWigwip.webp" target="_blank" rel="noopener">
+          <img src="cartoon/MWigwip.webp" alt="MWigwip.webp" title="MWigwip.webp" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/bafkreicswslhr4vdk7b24wmkvxzz55yo5mbnn27btmkdnsvvb5y6s42sry.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/bafkreicswslhr4vdk7b24wmkvxzz55yo5mbnn27btmkdnsvvb5y6s42sry.jpg" alt="bafkreicswslhr4vdk7b24wmkvxzz55yo5mbnn27btmkdnsvvb5y6s42sry.jpg" title="bafkreicswslhr4vdk7b24wmkvxzz55yo5mbnn27btmkdnsvvb5y6s42sry.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/bafkreidgfnqngm2maukyevgy5oodw3m572g77mnxa4nfi236re4lqiff5u.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/bafkreidgfnqngm2maukyevgy5oodw3m572g77mnxa4nfi236re4lqiff5u.jpg" alt="bafkreidgfnqngm2maukyevgy5oodw3m572g77mnxa4nfi236re4lqiff5u.jpg" title="bafkreidgfnqngm2maukyevgy5oodw3m572g77mnxa4nfi236re4lqiff5u.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/bafkreidhw3wppv7czzejsv36rpkfuxbuefr5v23hq7tladqkznevqfgb5e.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/bafkreidhw3wppv7czzejsv36rpkfuxbuefr5v23hq7tladqkznevqfgb5e.jpg" alt="bafkreidhw3wppv7czzejsv36rpkfuxbuefr5v23hq7tladqkznevqfgb5e.jpg" title="bafkreidhw3wppv7czzejsv36rpkfuxbuefr5v23hq7tladqkznevqfgb5e.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/bafkreihby2yq47nlmcflp5mfditkwvbrsmptizsbjj45jkaz5n6jydp43e.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/bafkreihby2yq47nlmcflp5mfditkwvbrsmptizsbjj45jkaz5n6jydp43e.jpg" alt="bafkreihby2yq47nlmcflp5mfditkwvbrsmptizsbjj45jkaz5n6jydp43e.jpg" title="bafkreihby2yq47nlmcflp5mfditkwvbrsmptizsbjj45jkaz5n6jydp43e.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/bambi_2-01.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/bambi_2-01.jpg" alt="bambi_2-01.jpg" title="bambi_2-01.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/bambi_2-02.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/bambi_2-02.jpg" alt="bambi_2-02.jpg" title="bambi_2-02.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/bambi_2-03.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/bambi_2-03.jpg" alt="bambi_2-03.jpg" title="bambi_2-03.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/deanhutMW.webp" target="_blank" rel="noopener">
+          <img src="cartoon/deanhutMW.webp" alt="deanhutMW.webp" title="deanhutMW.webp" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/earlyIGmw.webp" target="_blank" rel="noopener">
+          <img src="cartoon/earlyIGmw.webp" alt="earlyIGmw.webp" title="earlyIGmw.webp" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/el_dorado-01.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/el_dorado-01.jpg" alt="el_dorado-01.jpg" title="el_dorado-01.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/el_dorado-02.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/el_dorado-02.jpg" alt="el_dorado-02.jpg" title="el_dorado-02.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/el_dorado-03.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/el_dorado-03.jpg" alt="el_dorado-03.jpg" title="el_dorado-03.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/forestdetailMW.webp" target="_blank" rel="noopener">
+          <img src="cartoon/forestdetailMW.webp" alt="forestdetailMW.webp" title="forestdetailMW.webp" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/gianthillsmw.webp" target="_blank" rel="noopener">
+          <img src="cartoon/gianthillsmw.webp" alt="gianthillsmw.webp" title="gianthillsmw.webp" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/gianttreeMW.webp" target="_blank" rel="noopener">
+          <img src="cartoon/gianttreeMW.webp" alt="gianttreeMW.webp" title="gianttreeMW.webp" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/hogarthrocksMW.webp" target="_blank" rel="noopener">
+          <img src="cartoon/hogarthrocksMW.webp" alt="hogarthrocksMW.webp" title="hogarthrocksMW.webp" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/iron_giant-01.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/iron_giant-01.jpg" alt="iron_giant-01.jpg" title="iron_giant-01.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/iron_giant-02.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/iron_giant-02.jpg" alt="iron_giant-02.jpg" title="iron_giant-02.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/iron_giant-03.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/iron_giant-03.jpg" alt="iron_giant-03.jpg" title="iron_giant-03.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/iron_giant-04.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/iron_giant-04.jpg" alt="iron_giant-04.jpg" title="iron_giant-04.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/pinebottomsMW.webp" target="_blank" rel="noopener">
+          <img src="cartoon/pinebottomsMW.webp" alt="pinebottomsMW.webp" title="pinebottomsMW.webp" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/sinbad-01.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/sinbad-01.jpg" alt="sinbad-01.jpg" title="sinbad-01.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/sinbad-02.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/sinbad-02.jpg" alt="sinbad-02.jpg" title="sinbad-02.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/sinbad-03.jpg" target="_blank" rel="noopener">
+          <img src="cartoon/sinbad-03.jpg" alt="sinbad-03.jpg" title="sinbad-03.jpg" loading="lazy">
+        </a>
+        <a class="card" href="cartoon/wfClZdRb1x4LZ8B73Y9RSn8XAPa.webp" target="_blank" rel="noopener">
+          <img src="cartoon/wfClZdRb1x4LZ8B73Y9RSn8XAPa.webp" alt="wfClZdRb1x4LZ8B73Y9RSn8XAPa.webp" title="wfClZdRb1x4LZ8B73Y9RSn8XAPa.webp" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="characters">
+    <details open>
+      <summary>
+        <span class="folder-title">characters</span>
+        <span class="count">7 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="characters/bafkreib2pzhpelrqyyxq7qy7la2f3iljx6sgbow4zvpblzfjhewjtllyju.jpg" target="_blank" rel="noopener">
+          <img src="characters/bafkreib2pzhpelrqyyxq7qy7la2f3iljx6sgbow4zvpblzfjhewjtllyju.jpg" alt="bafkreib2pzhpelrqyyxq7qy7la2f3iljx6sgbow4zvpblzfjhewjtllyju.jpg" title="bafkreib2pzhpelrqyyxq7qy7la2f3iljx6sgbow4zvpblzfjhewjtllyju.jpg" loading="lazy">
+        </a>
+        <a class="card" href="characters/bafkreicyfz24rgwq5ogdiv4iq7eshudgqxhdhtvg67uwoh6wx57cyqrmby.jpg" target="_blank" rel="noopener">
+          <img src="characters/bafkreicyfz24rgwq5ogdiv4iq7eshudgqxhdhtvg67uwoh6wx57cyqrmby.jpg" alt="bafkreicyfz24rgwq5ogdiv4iq7eshudgqxhdhtvg67uwoh6wx57cyqrmby.jpg" title="bafkreicyfz24rgwq5ogdiv4iq7eshudgqxhdhtvg67uwoh6wx57cyqrmby.jpg" loading="lazy">
+        </a>
+        <a class="card" href="characters/bafkreiczaebiblpw4laqxsdtyz5quf47g7etusixmbentlswy6ebudgj3i.jpg" target="_blank" rel="noopener">
+          <img src="characters/bafkreiczaebiblpw4laqxsdtyz5quf47g7etusixmbentlswy6ebudgj3i.jpg" alt="bafkreiczaebiblpw4laqxsdtyz5quf47g7etusixmbentlswy6ebudgj3i.jpg" title="bafkreiczaebiblpw4laqxsdtyz5quf47g7etusixmbentlswy6ebudgj3i.jpg" loading="lazy">
+        </a>
+        <a class="card" href="characters/bafkreieqznffol4agplxxnqbvav433isskt5i2rtiivlmqa5xlb4rtzxr4.jpg" target="_blank" rel="noopener">
+          <img src="characters/bafkreieqznffol4agplxxnqbvav433isskt5i2rtiivlmqa5xlb4rtzxr4.jpg" alt="bafkreieqznffol4agplxxnqbvav433isskt5i2rtiivlmqa5xlb4rtzxr4.jpg" title="bafkreieqznffol4agplxxnqbvav433isskt5i2rtiivlmqa5xlb4rtzxr4.jpg" loading="lazy">
+        </a>
+        <a class="card" href="characters/bafkreigcinl6jqstikgbdpbeqaeldammxn3ec4usyxub5zgunswvpkgg3a.jpg" target="_blank" rel="noopener">
+          <img src="characters/bafkreigcinl6jqstikgbdpbeqaeldammxn3ec4usyxub5zgunswvpkgg3a.jpg" alt="bafkreigcinl6jqstikgbdpbeqaeldammxn3ec4usyxub5zgunswvpkgg3a.jpg" title="bafkreigcinl6jqstikgbdpbeqaeldammxn3ec4usyxub5zgunswvpkgg3a.jpg" loading="lazy">
+        </a>
+        <a class="card" href="characters/bafkreigibnkmffzb3c2ycrhunmyscp3nppvq4jghqec7po7oh55pultsba.jpg" target="_blank" rel="noopener">
+          <img src="characters/bafkreigibnkmffzb3c2ycrhunmyscp3nppvq4jghqec7po7oh55pultsba.jpg" alt="bafkreigibnkmffzb3c2ycrhunmyscp3nppvq4jghqec7po7oh55pultsba.jpg" title="bafkreigibnkmffzb3c2ycrhunmyscp3nppvq4jghqec7po7oh55pultsba.jpg" loading="lazy">
+        </a>
+        <a class="card" href="characters/bafkreih7liqkr2khpdfz7lkvvudy7hogxgyv4irhi2krayugeyhmms3kme.jpg" target="_blank" rel="noopener">
+          <img src="characters/bafkreih7liqkr2khpdfz7lkvvudy7hogxgyv4irhi2krayugeyhmms3kme.jpg" alt="bafkreih7liqkr2khpdfz7lkvvudy7hogxgyv4irhi2krayugeyhmms3kme.jpg" title="bafkreih7liqkr2khpdfz7lkvvudy7hogxgyv4irhi2krayugeyhmms3kme.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="city">
+    <details open>
+      <summary>
+        <span class="folder-title">city</span>
+        <span class="count">1 image</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="city/bafkreihtzbfh3qv4yqplsogx3hbe2efakv7l64y5pmv4uyg3deywy3rt4y.jpg" target="_blank" rel="noopener">
+          <img src="city/bafkreihtzbfh3qv4yqplsogx3hbe2efakv7l64y5pmv4uyg3deywy3rt4y.jpg" alt="bafkreihtzbfh3qv4yqplsogx3hbe2efakv7l64y5pmv4uyg3deywy3rt4y.jpg" title="bafkreihtzbfh3qv4yqplsogx3hbe2efakv7l64y5pmv4uyg3deywy3rt4y.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="futurism">
+    <details open>
+      <summary>
+        <span class="folder-title">futurism</span>
+        <span class="count">2 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="futurism/bafkreicfasimxcxovqekqwmgxulj3jzwld7olzdqijeavfvl6xvmxri6oe.jpg" target="_blank" rel="noopener">
+          <img src="futurism/bafkreicfasimxcxovqekqwmgxulj3jzwld7olzdqijeavfvl6xvmxri6oe.jpg" alt="bafkreicfasimxcxovqekqwmgxulj3jzwld7olzdqijeavfvl6xvmxri6oe.jpg" title="bafkreicfasimxcxovqekqwmgxulj3jzwld7olzdqijeavfvl6xvmxri6oe.jpg" loading="lazy">
+        </a>
+        <a class="card" href="futurism/bafkreidrinx6jhct5nwosad6khkz6dcgyaix3wjh4nmpuxnyn6fdf42wbm.jpg" target="_blank" rel="noopener">
+          <img src="futurism/bafkreidrinx6jhct5nwosad6khkz6dcgyaix3wjh4nmpuxnyn6fdf42wbm.jpg" alt="bafkreidrinx6jhct5nwosad6khkz6dcgyaix3wjh4nmpuxnyn6fdf42wbm.jpg" title="bafkreidrinx6jhct5nwosad6khkz6dcgyaix3wjh4nmpuxnyn6fdf42wbm.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="geometry">
+    <details open>
+      <summary>
+        <span class="folder-title">geometry</span>
+        <span class="count">6 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="geometry/bafkreibjimsspiipvfth7gfawh34fvgjg2naotlvnzod5o4d7n7cy3j7yi.jpg" target="_blank" rel="noopener">
+          <img src="geometry/bafkreibjimsspiipvfth7gfawh34fvgjg2naotlvnzod5o4d7n7cy3j7yi.jpg" alt="bafkreibjimsspiipvfth7gfawh34fvgjg2naotlvnzod5o4d7n7cy3j7yi.jpg" title="bafkreibjimsspiipvfth7gfawh34fvgjg2naotlvnzod5o4d7n7cy3j7yi.jpg" loading="lazy">
+        </a>
+        <a class="card" href="geometry/bafkreid726pyndxfzrinu3fvge2ytzu6w5xasyg6s2u67ovwafllhle4iy.jpg" target="_blank" rel="noopener">
+          <img src="geometry/bafkreid726pyndxfzrinu3fvge2ytzu6w5xasyg6s2u67ovwafllhle4iy.jpg" alt="bafkreid726pyndxfzrinu3fvge2ytzu6w5xasyg6s2u67ovwafllhle4iy.jpg" title="bafkreid726pyndxfzrinu3fvge2ytzu6w5xasyg6s2u67ovwafllhle4iy.jpg" loading="lazy">
+        </a>
+        <a class="card" href="geometry/bafkreidm7yurthr2pmyfeiv55ghlsmtrtw5slvftksjjuyxgvrdekplft4.jpg" target="_blank" rel="noopener">
+          <img src="geometry/bafkreidm7yurthr2pmyfeiv55ghlsmtrtw5slvftksjjuyxgvrdekplft4.jpg" alt="bafkreidm7yurthr2pmyfeiv55ghlsmtrtw5slvftksjjuyxgvrdekplft4.jpg" title="bafkreidm7yurthr2pmyfeiv55ghlsmtrtw5slvftksjjuyxgvrdekplft4.jpg" loading="lazy">
+        </a>
+        <a class="card" href="geometry/bafkreidspk2eaeve6muqf3mvs4ti5msdbrlyq6hh7ewrboor2xmo3o7ckm.jpg" target="_blank" rel="noopener">
+          <img src="geometry/bafkreidspk2eaeve6muqf3mvs4ti5msdbrlyq6hh7ewrboor2xmo3o7ckm.jpg" alt="bafkreidspk2eaeve6muqf3mvs4ti5msdbrlyq6hh7ewrboor2xmo3o7ckm.jpg" title="bafkreidspk2eaeve6muqf3mvs4ti5msdbrlyq6hh7ewrboor2xmo3o7ckm.jpg" loading="lazy">
+        </a>
+        <a class="card" href="geometry/bafkreielqvhephcw33ujso4od37bfbsuhmtnwoco2y4fl4bj6xtd2d6pwq.jpg" target="_blank" rel="noopener">
+          <img src="geometry/bafkreielqvhephcw33ujso4od37bfbsuhmtnwoco2y4fl4bj6xtd2d6pwq.jpg" alt="bafkreielqvhephcw33ujso4od37bfbsuhmtnwoco2y4fl4bj6xtd2d6pwq.jpg" title="bafkreielqvhephcw33ujso4od37bfbsuhmtnwoco2y4fl4bj6xtd2d6pwq.jpg" loading="lazy">
+        </a>
+        <a class="card" href="geometry/bafkreiesz5olhmgp5yb2z3hw5kp4oihgpobav6llhtjokfztbn4bv3oh6u.jpg" target="_blank" rel="noopener">
+          <img src="geometry/bafkreiesz5olhmgp5yb2z3hw5kp4oihgpobav6llhtjokfztbn4bv3oh6u.jpg" alt="bafkreiesz5olhmgp5yb2z3hw5kp4oihgpobav6llhtjokfztbn4bv3oh6u.jpg" title="bafkreiesz5olhmgp5yb2z3hw5kp4oihgpobav6llhtjokfztbn4bv3oh6u.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="kaa">
+    <details open>
+      <summary>
+        <span class="folder-title">kaa</span>
+        <span class="count">5 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="kaa/3e7f5ade2b12abbdbd671d363bae84aa.jpg" target="_blank" rel="noopener">
+          <img src="kaa/3e7f5ade2b12abbdbd671d363bae84aa.jpg" alt="3e7f5ade2b12abbdbd671d363bae84aa.jpg" title="3e7f5ade2b12abbdbd671d363bae84aa.jpg" loading="lazy">
+        </a>
+        <a class="card" href="kaa/Profile_-_Kaa.webp" target="_blank" rel="noopener">
+          <img src="kaa/Profile_-_Kaa.webp" alt="Profile_-_Kaa.webp" title="Profile_-_Kaa.webp" loading="lazy">
+        </a>
+        <a class="card" href="kaa/josu-martin-kaa-unreal-00000.jpg" target="_blank" rel="noopener">
+          <img src="kaa/josu-martin-kaa-unreal-00000.jpg" alt="josu-martin-kaa-unreal-00000.jpg" title="josu-martin-kaa-unreal-00000.jpg" loading="lazy">
+        </a>
+        <a class="card" href="kaa/omkar-nerlekar-final2.jpg" target="_blank" rel="noopener">
+          <img src="kaa/omkar-nerlekar-final2.jpg" alt="omkar-nerlekar-final2.jpg" title="omkar-nerlekar-final2.jpg" loading="lazy">
+        </a>
+        <a class="card" href="kaa/sold-out-kaa-and-mowgli-73.jpg" target="_blank" rel="noopener">
+          <img src="kaa/sold-out-kaa-and-mowgli-73.jpg" alt="sold-out-kaa-and-mowgli-73.jpg" title="sold-out-kaa-and-mowgli-73.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="landscape">
+    <details open>
+      <summary>
+        <span class="folder-title">landscape</span>
+        <span class="count">4 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="landscape/bafkreib73v5le2knctax5sqp4sncz3gqq2k5yknpx24smd7ztfquesvnw4.jpg" target="_blank" rel="noopener">
+          <img src="landscape/bafkreib73v5le2knctax5sqp4sncz3gqq2k5yknpx24smd7ztfquesvnw4.jpg" alt="bafkreib73v5le2knctax5sqp4sncz3gqq2k5yknpx24smd7ztfquesvnw4.jpg" title="bafkreib73v5le2knctax5sqp4sncz3gqq2k5yknpx24smd7ztfquesvnw4.jpg" loading="lazy">
+        </a>
+        <a class="card" href="landscape/bafkreiehgx7cbxzyf7o75uovaxfjxbwcdfbxk3cbtcfzw25i7srulizoqm.jpg" target="_blank" rel="noopener">
+          <img src="landscape/bafkreiehgx7cbxzyf7o75uovaxfjxbwcdfbxk3cbtcfzw25i7srulizoqm.jpg" alt="bafkreiehgx7cbxzyf7o75uovaxfjxbwcdfbxk3cbtcfzw25i7srulizoqm.jpg" title="bafkreiehgx7cbxzyf7o75uovaxfjxbwcdfbxk3cbtcfzw25i7srulizoqm.jpg" loading="lazy">
+        </a>
+        <a class="card" href="landscape/bafkreiewfe44dl5bo7anmqzdraml77v7sw4g7sgonb63h6fsd4lgjedymq.jpg" target="_blank" rel="noopener">
+          <img src="landscape/bafkreiewfe44dl5bo7anmqzdraml77v7sw4g7sgonb63h6fsd4lgjedymq.jpg" alt="bafkreiewfe44dl5bo7anmqzdraml77v7sw4g7sgonb63h6fsd4lgjedymq.jpg" title="bafkreiewfe44dl5bo7anmqzdraml77v7sw4g7sgonb63h6fsd4lgjedymq.jpg" loading="lazy">
+        </a>
+        <a class="card" href="landscape/bafkreifmgyjw7q37fwrivvd25p2zgjteovzstcfhf7xdynaeaxfbh3md6y.jpg" target="_blank" rel="noopener">
+          <img src="landscape/bafkreifmgyjw7q37fwrivvd25p2zgjteovzstcfhf7xdynaeaxfbh3md6y.jpg" alt="bafkreifmgyjw7q37fwrivvd25p2zgjteovzstcfhf7xdynaeaxfbh3md6y.jpg" title="bafkreifmgyjw7q37fwrivvd25p2zgjteovzstcfhf7xdynaeaxfbh3md6y.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="lightAndShadows">
+    <details open>
+      <summary>
+        <span class="folder-title">lightAndShadows</span>
+        <span class="count">2 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="lightAndShadows/bafkreialfralsd2jl4k2e4gxg4ljaai4yglaw24kukhrtic6iuxxszuehi.jpg" target="_blank" rel="noopener">
+          <img src="lightAndShadows/bafkreialfralsd2jl4k2e4gxg4ljaai4yglaw24kukhrtic6iuxxszuehi.jpg" alt="bafkreialfralsd2jl4k2e4gxg4ljaai4yglaw24kukhrtic6iuxxszuehi.jpg" title="bafkreialfralsd2jl4k2e4gxg4ljaai4yglaw24kukhrtic6iuxxszuehi.jpg" loading="lazy">
+        </a>
+        <a class="card" href="lightAndShadows/bafkreibrnqlhccoymban3dtd5dffhgizp5i5uzt6ejf4q6duccqbf7qfx4.jpg" target="_blank" rel="noopener">
+          <img src="lightAndShadows/bafkreibrnqlhccoymban3dtd5dffhgizp5i5uzt6ejf4q6duccqbf7qfx4.jpg" alt="bafkreibrnqlhccoymban3dtd5dffhgizp5i5uzt6ejf4q6duccqbf7qfx4.jpg" title="bafkreibrnqlhccoymban3dtd5dffhgizp5i5uzt6ejf4q6duccqbf7qfx4.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="manga">
+    <details open>
+      <summary>
+        <span class="folder-title">manga</span>
+        <span class="count">1 image</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="manga/domu.jpg" target="_blank" rel="noopener">
+          <img src="manga/domu.jpg" alt="domu.jpg" title="domu.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="pipes">
+    <details open>
+      <summary>
+        <span class="folder-title">pipes</span>
+        <span class="count">8 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="pipes/Tatsuwo+-+13.webp" target="_blank" rel="noopener">
+          <img src="pipes/Tatsuwo+-+13.webp" alt="Tatsuwo+-+13.webp" title="Tatsuwo+-+13.webp" loading="lazy">
+        </a>
+        <a class="card" href="pipes/bafkreidjmhxc7i446e4etvdsetqizrrrplgc77twjuu3n3ncxzuylrbmyi.jpg" target="_blank" rel="noopener">
+          <img src="pipes/bafkreidjmhxc7i446e4etvdsetqizrrrplgc77twjuu3n3ncxzuylrbmyi.jpg" alt="bafkreidjmhxc7i446e4etvdsetqizrrrplgc77twjuu3n3ncxzuylrbmyi.jpg" title="bafkreidjmhxc7i446e4etvdsetqizrrrplgc77twjuu3n3ncxzuylrbmyi.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes/bafkreidkdu7gknimoit5gamnqj3sdftiywjudxijhntbpfkhv3hdwzozhe.jpg" target="_blank" rel="noopener">
+          <img src="pipes/bafkreidkdu7gknimoit5gamnqj3sdftiywjudxijhntbpfkhv3hdwzozhe.jpg" alt="bafkreidkdu7gknimoit5gamnqj3sdftiywjudxijhntbpfkhv3hdwzozhe.jpg" title="bafkreidkdu7gknimoit5gamnqj3sdftiywjudxijhntbpfkhv3hdwzozhe.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes/bafkreieitjutvb2ou5fovw435fdsc5nsfaf7mqxml4e2fk2yg7irecye4y.jpg" target="_blank" rel="noopener">
+          <img src="pipes/bafkreieitjutvb2ou5fovw435fdsc5nsfaf7mqxml4e2fk2yg7irecye4y.jpg" alt="bafkreieitjutvb2ou5fovw435fdsc5nsfaf7mqxml4e2fk2yg7irecye4y.jpg" title="bafkreieitjutvb2ou5fovw435fdsc5nsfaf7mqxml4e2fk2yg7irecye4y.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes/bafkreifanq2wjxtkqcmzpmg2qrin5pqt3dwgen53ubf7udx43bjupqciuq.jpg" target="_blank" rel="noopener">
+          <img src="pipes/bafkreifanq2wjxtkqcmzpmg2qrin5pqt3dwgen53ubf7udx43bjupqciuq.jpg" alt="bafkreifanq2wjxtkqcmzpmg2qrin5pqt3dwgen53ubf7udx43bjupqciuq.jpg" title="bafkreifanq2wjxtkqcmzpmg2qrin5pqt3dwgen53ubf7udx43bjupqciuq.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes/bafkreifgjnq6a52bx6sqtbooxj4jwlzc5afkv4fgzhg4sbfxix2zzqniui.jpg" target="_blank" rel="noopener">
+          <img src="pipes/bafkreifgjnq6a52bx6sqtbooxj4jwlzc5afkv4fgzhg4sbfxix2zzqniui.jpg" alt="bafkreifgjnq6a52bx6sqtbooxj4jwlzc5afkv4fgzhg4sbfxix2zzqniui.jpg" title="bafkreifgjnq6a52bx6sqtbooxj4jwlzc5afkv4fgzhg4sbfxix2zzqniui.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes/bafkreigz6bkfjnlylfcr5hvei757zzijh3w3nh3mfuiyowfdj7ioyhc4y4.jpg" target="_blank" rel="noopener">
+          <img src="pipes/bafkreigz6bkfjnlylfcr5hvei757zzijh3w3nh3mfuiyowfdj7ioyhc4y4.jpg" alt="bafkreigz6bkfjnlylfcr5hvei757zzijh3w3nh3mfuiyowfdj7ioyhc4y4.jpg" title="bafkreigz6bkfjnlylfcr5hvei757zzijh3w3nh3mfuiyowfdj7ioyhc4y4.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes/bafkreihmlt5mjihze4e5b5jd3g4byyaufljgztg3tubtlhck7j35dweyka.jpg" target="_blank" rel="noopener">
+          <img src="pipes/bafkreihmlt5mjihze4e5b5jd3g4byyaufljgztg3tubtlhck7j35dweyka.jpg" alt="bafkreihmlt5mjihze4e5b5jd3g4byyaufljgztg3tubtlhck7j35dweyka.jpg" title="bafkreihmlt5mjihze4e5b5jd3g4byyaufljgztg3tubtlhck7j35dweyka.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="pipes2">
+    <details open>
+      <summary>
+        <span class="folder-title">pipes2</span>
+        <span class="count">22 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="pipes2/Eu43xWWVcAYG-bB.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/Eu43xWWVcAYG-bB.jpg" alt="Eu43xWWVcAYG-bB.jpg" title="Eu43xWWVcAYG-bB.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/Eu44KNvVIAg-fMb.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/Eu44KNvVIAg-fMb.jpg" alt="Eu44KNvVIAg-fMb.jpg" title="Eu44KNvVIAg-fMb.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/Eu44KNwUcAEuHt8.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/Eu44KNwUcAEuHt8.jpg" alt="Eu44KNwUcAEuHt8.jpg" title="Eu44KNwUcAEuHt8.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/EyYc9pnVgAAg_Tk.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/EyYc9pnVgAAg_Tk.jpg" alt="EyYc9pnVgAAg_Tk.jpg" title="EyYc9pnVgAAg_Tk.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/F7i4w0AaUAAHU79.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/F7i4w0AaUAAHU79.jpg" alt="F7i4w0AaUAAHU79.jpg" title="F7i4w0AaUAAHU79.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/FmIyro3aEAAl0TD.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/FmIyro3aEAAl0TD.jpg" alt="FmIyro3aEAAl0TD.jpg" title="FmIyro3aEAAl0TD.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/FmIzPXRaEAAOvnS.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/FmIzPXRaEAAOvnS.jpg" alt="FmIzPXRaEAAOvnS.jpg" title="FmIzPXRaEAAOvnS.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/FmIzesnacAQwTj9.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/FmIzesnacAQwTj9.jpg" alt="FmIzesnacAQwTj9.jpg" title="FmIzesnacAQwTj9.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/FmIziuGaYAAy-lc.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/FmIziuGaYAAy-lc.jpg" alt="FmIziuGaYAAy-lc.jpg" title="FmIziuGaYAAy-lc.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/GF_3MjAa8AATOZA.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/GF_3MjAa8AATOZA.jpg" alt="GF_3MjAa8AATOZA.jpg" title="GF_3MjAa8AATOZA.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/GFdKll9aQAAfpye.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/GFdKll9aQAAfpye.jpg" alt="GFdKll9aQAAfpye.jpg" title="GFdKll9aQAAfpye.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/GGFGuSIa8AANcp1.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/GGFGuSIa8AANcp1.jpg" alt="GGFGuSIa8AANcp1.jpg" title="GGFGuSIa8AANcp1.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/GQiSeamXMAA2PF_.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/GQiSeamXMAA2PF_.jpg" alt="GQiSeamXMAA2PF_.jpg" title="GQiSeamXMAA2PF_.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/GQiSjF1XYAAUOSZ.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/GQiSjF1XYAAUOSZ.jpg" alt="GQiSjF1XYAAUOSZ.jpg" title="GQiSjF1XYAAUOSZ.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/GSDozyCWcAA1Ef1.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/GSDozyCWcAA1Ef1.jpg" alt="GSDozyCWcAA1Ef1.jpg" title="GSDozyCWcAA1Ef1.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/GUvlbfOaMAA5xf6.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/GUvlbfOaMAA5xf6.jpg" alt="GUvlbfOaMAA5xf6.jpg" title="GUvlbfOaMAA5xf6.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/GUvluniacAAY6gV.jpg" target="_blank" rel="noopener">
+          <img src="pipes2/GUvluniacAAY6gV.jpg" alt="GUvluniacAAY6gV.jpg" title="GUvluniacAAY6gV.jpg" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/char0.png" target="_blank" rel="noopener">
+          <img src="pipes2/char0.png" alt="char0.png" title="char0.png" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/char1.png" target="_blank" rel="noopener">
+          <img src="pipes2/char1.png" alt="char1.png" title="char1.png" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/tuy1.png" target="_blank" rel="noopener">
+          <img src="pipes2/tuy1.png" alt="tuy1.png" title="tuy1.png" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/tuy2.png" target="_blank" rel="noopener">
+          <img src="pipes2/tuy2.png" alt="tuy2.png" title="tuy2.png" loading="lazy">
+        </a>
+        <a class="card" href="pipes2/tuy3.png" target="_blank" rel="noopener">
+          <img src="pipes2/tuy3.png" alt="tuy3.png" title="tuy3.png" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="sketches">
+    <details open>
+      <summary>
+        <span class="folder-title">sketches</span>
+        <span class="count">2 images</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="sketches/bafkreidwsdum64s6l4dbsaf47f6xrb46dr4dcy2mrmbxnzzanbhwwrnmq4.jpg" target="_blank" rel="noopener">
+          <img src="sketches/bafkreidwsdum64s6l4dbsaf47f6xrb46dr4dcy2mrmbxnzzanbhwwrnmq4.jpg" alt="bafkreidwsdum64s6l4dbsaf47f6xrb46dr4dcy2mrmbxnzzanbhwwrnmq4.jpg" title="bafkreidwsdum64s6l4dbsaf47f6xrb46dr4dcy2mrmbxnzzanbhwwrnmq4.jpg" loading="lazy">
+        </a>
+        <a class="card" href="sketches/vg_cut_w9qShhxg5i.avif" target="_blank" rel="noopener">
+          <img src="sketches/vg_cut_w9qShhxg5i.avif" alt="vg_cut_w9qShhxg5i.avif" title="vg_cut_w9qShhxg5i.avif" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  <section id="winter">
+    <details open>
+      <summary>
+        <span class="folder-title">winter</span>
+        <span class="count">1 image</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <a class="card" href="winter/bafkreifhnhadrz6q3w2iqzd4hgxsp25tcl2gyuprknd7lry5atyhn3lteq.jpg" target="_blank" rel="noopener">
+          <img src="winter/bafkreifhnhadrz6q3w2iqzd4hgxsp25tcl2gyuprknd7lry5atyhn3lteq.jpg" alt="bafkreifhnhadrz6q3w2iqzd4hgxsp25tcl2gyuprknd7lry5atyhn3lteq.jpg" title="bafkreifhnhadrz6q3w2iqzd4hgxsp25tcl2gyuprknd7lry5atyhn3lteq.jpg" loading="lazy">
+        </a>
+      </div>
+    </details>
+  </section>
+  </main>
+</body>
+</html>
