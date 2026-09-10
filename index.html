@@ -3,218 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inspirations</title>
+  <title>cedricguillemet-reimagined-pancake</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #111;
-      --surface: #1a1a1a;
-      --border: #2a2a2a;
-      --accent: #c8a96e;
-      --text: #e0e0e0;
-      --muted: #666;
-      --radius: 6px;
-      --thumb: 120px;
+      --bg: #111; --surface: #1a1a1a; --border: #2a2a2a; --accent: #c8a96e;
+      --text: #e0e0e0; --muted: #777; --radius: 6px; --thumb: 120px;
     }
-
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, sans-serif;
-      line-height: 1.5;
+      background: var(--bg); color: var(--text);
+      font-family: system-ui, -apple-system, sans-serif; line-height: 1.5;
     }
-
-    /* ── Header ── */
-    header {
-      padding: 2rem 2rem 1.2rem;
-      border-bottom: 1px solid var(--border);
-    }
+    button { color: inherit; font: inherit; }
+    header { padding: 2rem 2rem 1.2rem; border-bottom: 1px solid var(--border); }
     header h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: -.02em; }
     header .meta { color: var(--muted); font-size: .875rem; margin-top: .2rem; }
-
-    /* ── Nav: thumbnail grid ── */
-    nav {
-      padding: 1.25rem 2rem;
-      border-bottom: 1px solid var(--border);
-      background: var(--surface);
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    /* Square thumbnail card */
+    nav { padding: 1.25rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface); }
+    nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
     .nav-thumb {
-      display: block;
-      position: relative;
-      width: var(--thumb);
-      height: var(--thumb);
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      text-decoration: none;
-      transition: border-color .15s, transform .15s;
+      display: block; position: relative; width: var(--thumb); height: var(--thumb);
+      border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
+      text-decoration: none; transition: border-color .15s, transform .15s;
     }
-    .nav-thumb:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-    .nav-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    /* Folder name overlay */
+    .nav-thumb:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .nav-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .nav-thumb span {
-      position: absolute;
-      inset: auto 0 0 0;
-      padding: .3rem .4rem;
-      background: linear-gradient(transparent, rgba(0,0,0,.75));
-      color: #fff;
-      font-size: .65rem;
-      font-weight: 600;
-      line-height: 1.2;
-      letter-spacing: .01em;
-      text-align: center;
+      position: absolute; inset: auto 0 0 0; padding: .3rem .4rem;
+      background: linear-gradient(transparent, rgba(0,0,0,.75)); color: #fff;
+      font-size: .65rem; font-weight: 600; line-height: 1.2; text-align: center;
       word-break: break-word;
     }
-
-    /* ── Main layout ── */
     main { padding: 2rem; max-width: 1600px; margin: 0 auto; }
-
     section { margin-bottom: 2rem; }
-
-    /* ── Collapsible section header ── */
     details > summary {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-      cursor: pointer;
-      padding: .6rem .8rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      margin-bottom: .75rem;
-      user-select: none;
+      list-style: none; display: flex; align-items: center; gap: .75rem; cursor: pointer;
+      padding: .6rem .8rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); margin-bottom: .75rem; user-select: none;
     }
     details > summary::-webkit-details-marker { display: none; }
     details > summary::before {
-      content: "▶";
-      font-size: .65rem;
-      color: var(--muted);
-      transition: transform .2s;
+      content: "▶"; font-size: .65rem; color: var(--muted); transition: transform .2s;
       flex-shrink: 0;
     }
     details[open] > summary::before { transform: rotate(90deg); }
     details > summary:hover { border-color: var(--accent); }
-
-    .folder-title {
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: -.01em;
-    }
-    .count {
-      font-size: .75rem;
-      font-weight: 400;
-      color: var(--muted);
-      margin-left: auto;
-    }
-
-    /* Back-to-top button inside summary */
+    .folder-title { font-size: 1rem; font-weight: 600; letter-spacing: -.01em; }
+    .count { font-size: .75rem; color: var(--muted); margin-left: auto; }
     .top-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: .25rem;
-      font-size: .72rem;
-      font-weight: 500;
-      color: var(--accent);
-      text-decoration: none;
-      padding: .15rem .45rem;
-      border: 1px solid var(--border);
-      border-radius: calc(var(--radius) - 1px);
-      transition: border-color .15s, background .15s;
-      flex-shrink: 0;
-      margin-left: .5rem;
+      display: inline-flex; font-size: .72rem; font-weight: 500; color: var(--accent);
+      text-decoration: none; padding: .15rem .45rem; border: 1px solid var(--border);
+      border-radius: calc(var(--radius) - 1px); flex-shrink: 0; margin-left: .5rem;
     }
-    .top-btn:hover {
-      border-color: var(--accent);
-      background: rgba(200,169,110,.08);
-    }
-
-    /* ── Masonry ── */
-    .masonry {
-      columns: 3;
-      column-gap: 8px;
-    }
-
-    /* ── Card ── */
+    .top-btn:hover { border-color: var(--accent); background: rgba(200,169,110,.08); }
+    .masonry { columns: 3; column-gap: 8px; }
     .card {
-      display: block;
-      break-inside: avoid;
-      margin-bottom: 8px;
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      transition: border-color .15s, opacity .15s;
+      display: block; position: relative; width: 100%; break-inside: avoid; margin-bottom: 8px;
+      padding: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);
+      background: #000; transition: border-color .15s, opacity .15s;
     }
     .card:hover { border-color: var(--accent); opacity: .9; }
-    .card img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .card img { width: 100%; height: auto; display: block; }
+    .media-card { cursor: pointer; text-align: left; }
+    .media-badge {
+      position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+      display: grid; place-items: center; width: 3rem; height: 3rem; padding-left: .2rem;
+      border-radius: 50%; background: rgba(0,0,0,.72); border: 1px solid rgba(255,255,255,.55);
+      color: #fff; font-size: 1.15rem; pointer-events: none;
     }
-
-    /* ── Responsive ── */
-    @media (max-width: 900px)  { .masonry { columns: 2; } }
-    @media (max-width: 520px)  { .masonry { columns: 1; } .nav-thumb { --thumb: 90px; } }
-
-    /* ── Floating nav buttons ── */
+    .player {
+      width: min(94vw, 1100px); max-height: 94vh; padding: 0; overflow: hidden;
+      border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text);
+    }
+    .player::backdrop { background: rgba(0,0,0,.82); backdrop-filter: blur(3px); }
+    .player-header, .player-controls {
+      display: flex; align-items: center; gap: .65rem; padding: .7rem .85rem;
+    }
+    .player-header { border-bottom: 1px solid var(--border); }
+    .player-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .player-close { margin-left: auto; }
+    .player-stage {
+      display: grid; place-items: center; height: min(72vh, 760px); background: #050505;
+    }
+    .player-stage video, .player-stage canvas {
+      display: block; max-width: 100%; max-height: 100%; object-fit: contain;
+    }
+    .player-controls { justify-content: center; border-top: 1px solid var(--border); }
+    .player-controls button, .player-close {
+      min-width: 2.5rem; padding: .4rem .7rem; border-radius: 5px;
+      border: 1px solid var(--border); background: #222; cursor: pointer;
+    }
+    .player-controls button:hover, .player-close:hover { border-color: var(--accent); }
+    .frame-status { min-width: 9rem; text-align: center; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .player-error { color: #ff9b9b; padding: 1rem; }
+    @media (max-width: 900px) { .masonry { columns: 2; } }
+    @media (max-width: 520px) {
+      .masonry { columns: 1; } .nav-thumb { --thumb: 90px; }
+      main, nav { padding-left: 1rem; padding-right: 1rem; }
+    }
     .fab-cluster {
-      position: fixed;
-      bottom: .75rem;
-      right: .75rem;
-      display: flex;
-      flex-direction: column;
-      gap: .45rem;
-      z-index: 100;
+      position: fixed; bottom: .75rem; right: .75rem; display: flex;
+      flex-direction: column; gap: .45rem; z-index: 100;
     }
     .fab {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.4rem;
-      height: 2.4rem;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--muted);
-      font-size: 1rem;
-      cursor: pointer;
-      text-decoration: none;
-      transition: border-color .15s, background .15s, color .15s, transform .15s;
+      display: flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem;
+      border-radius: 50%; border: 1px solid var(--border); background: var(--surface);
+      color: var(--muted); font-size: 1rem; cursor: pointer; text-decoration: none;
       box-shadow: 0 2px 8px rgba(0,0,0,.4);
-      line-height: 1;
     }
-    .fab:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(200,169,110,.08);
-      transform: translateY(-2px);
-    }
+    .fab:hover { border-color: var(--accent); color: var(--accent); }
   </style>
 </head>
 <body>
   <header id="top">
-    <h1>Inspirations</h1>
-    <p class="meta">462 images &middot; 27 folders</p>
+    <h1>cedricguillemet-reimagined-pancake</h1>
+    <p class="meta">463 items &middot; 1 animation &middot; 28 folders</p>
   </header>
-  <nav>
-    <ul>
+  <nav><ul>
     <li>
       <a class="nav-thumb" href="#64Kb2">
         <img src="64Kb2/106390.gif" alt="64Kb2" loading="lazy">
@@ -267,6 +171,12 @@
       <a class="nav-thumb" href="#Wipeput">
         <img src="Wipeput/bafkreiaq7uo7ldednho7xsdxq54snfhylm6kkbor2klha35ofzkxrddvf4.jpg" alt="Wipeput" loading="lazy">
         <span>Wipeput</span>
+      </a>
+    </li>
+    <li>
+      <a class="nav-thumb" href="#anims">
+        <img src=".generated/previews/venom_fan_animation%20%28720p%29-c7ed76066e7c.gif" alt="anims" loading="lazy">
+        <span>anims</span>
       </a>
     </li>
     <li>
@@ -349,7 +259,7 @@
     </li>
     <li>
       <a class="nav-thumb" href="#pipes">
-        <img src="pipes/Tatsuwo+-+13.webp" alt="pipes" loading="lazy">
+        <img src="pipes/Tatsuwo%2B-%2B13.webp" alt="pipes" loading="lazy">
         <span>pipes</span>
       </a>
     </li>
@@ -377,15 +287,14 @@
         <span>winter</span>
       </a>
     </li>
-    </ul>
-  </nav>
+  </ul></nav>
   <main>
 
   <section id="64Kb2">
     <details open>
       <summary>
         <span class="folder-title">64Kb2</span>
-        <span class="count">30 images</span>
+        <span class="count">30 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -467,8 +376,8 @@
         <a class="card" href="64Kb2/shore6.jpeg" target="_blank" rel="noopener">
           <img src="64Kb2/shore6.jpeg" alt="shore6.jpeg" title="shore6.jpeg" loading="lazy">
         </a>
-        <a class="card" href="64Kb2/th%20(1).jpeg" target="_blank" rel="noopener">
-          <img src="64Kb2/th%20(1).jpeg" alt="th (1).jpeg" title="th (1).jpeg" loading="lazy">
+        <a class="card" href="64Kb2/th%20%281%29.jpeg" target="_blank" rel="noopener">
+          <img src="64Kb2/th%20%281%29.jpeg" alt="th (1).jpeg" title="th (1).jpeg" loading="lazy">
         </a>
         <a class="card" href="64Kb2/th.jpeg" target="_blank" rel="noopener">
           <img src="64Kb2/th.jpeg" alt="th.jpeg" title="th.jpeg" loading="lazy">
@@ -486,7 +395,7 @@
     <details open>
       <summary>
         <span class="folder-title">Brutalism</span>
-        <span class="count">72 images</span>
+        <span class="count">72 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -713,7 +622,7 @@
     <details open>
       <summary>
         <span class="folder-title">Effects</span>
-        <span class="count">1 image</span>
+        <span class="count">1 item</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -727,7 +636,7 @@
     <details open>
       <summary>
         <span class="folder-title">Icy</span>
-        <span class="count">48 images</span>
+        <span class="count">48 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -770,8 +679,8 @@
         <a class="card" href="Icy/84bb1792bda7551d48955b206e72652e.jpg" target="_blank" rel="noopener">
           <img src="Icy/84bb1792bda7551d48955b206e72652e.jpg" alt="84bb1792bda7551d48955b206e72652e.jpg" title="84bb1792bda7551d48955b206e72652e.jpg" loading="lazy">
         </a>
-        <a class="card" href="Icy/ArtStation%20-%20Works%202022,%20Ben%20Juniu.jpeg" target="_blank" rel="noopener">
-          <img src="Icy/ArtStation%20-%20Works%202022,%20Ben%20Juniu.jpeg" alt="ArtStation - Works 2022, Ben Juniu.jpeg" title="ArtStation - Works 2022, Ben Juniu.jpeg" loading="lazy">
+        <a class="card" href="Icy/ArtStation%20-%20Works%202022%2C%20Ben%20Juniu.jpeg" target="_blank" rel="noopener">
+          <img src="Icy/ArtStation%20-%20Works%202022%2C%20Ben%20Juniu.jpeg" alt="ArtStation - Works 2022, Ben Juniu.jpeg" title="ArtStation - Works 2022, Ben Juniu.jpeg" loading="lazy">
         </a>
         <a class="card" href="Icy/Bay%20of%20Snow.jpeg" target="_blank" rel="noopener">
           <img src="Icy/Bay%20of%20Snow.jpeg" alt="Bay of Snow.jpeg" title="Bay of Snow.jpeg" loading="lazy">
@@ -782,14 +691,14 @@
         <a class="card" href="Icy/Iceberg-Antarctic.jpeg" target="_blank" rel="noopener">
           <img src="Icy/Iceberg-Antarctic.jpeg" alt="Iceberg-Antarctic.jpeg" title="Iceberg-Antarctic.jpeg" loading="lazy">
         </a>
-        <a class="card" href="Icy/Jakub%20Cichecki%20is%20freelance%20digital%20artist%20and….jpeg" target="_blank" rel="noopener">
-          <img src="Icy/Jakub%20Cichecki%20is%20freelance%20digital%20artist%20and….jpeg" alt="Jakub Cichecki is freelance digital artist and….jpeg" title="Jakub Cichecki is freelance digital artist and….jpeg" loading="lazy">
+        <a class="card" href="Icy/Jakub%20Cichecki%20is%20freelance%20digital%20artist%20and%E2%80%A6.jpeg" target="_blank" rel="noopener">
+          <img src="Icy/Jakub%20Cichecki%20is%20freelance%20digital%20artist%20and%E2%80%A6.jpeg" alt="Jakub Cichecki is freelance digital artist and….jpeg" title="Jakub Cichecki is freelance digital artist and….jpeg" loading="lazy">
         </a>
         <a class="card" href="Icy/Melting_Ice_Sheets_20280818003.jpg" target="_blank" rel="noopener">
           <img src="Icy/Melting_Ice_Sheets_20280818003.jpg" alt="Melting_Ice_Sheets_20280818003.jpg" title="Melting_Ice_Sheets_20280818003.jpg" loading="lazy">
         </a>
-        <a class="card" href="Icy/Photo%20inquiétante%20océan%20antarctique.jpeg" target="_blank" rel="noopener">
-          <img src="Icy/Photo%20inquiétante%20océan%20antarctique.jpeg" alt="Photo inquiétante océan antarctique.jpeg" title="Photo inquiétante océan antarctique.jpeg" loading="lazy">
+        <a class="card" href="Icy/Photo%20inqui%C3%A9tante%20oc%C3%A9an%20antarctique.jpeg" target="_blank" rel="noopener">
+          <img src="Icy/Photo%20inqui%C3%A9tante%20oc%C3%A9an%20antarctique.jpeg" alt="Photo inquiétante océan antarctique.jpeg" title="Photo inquiétante océan antarctique.jpeg" loading="lazy">
         </a>
         <a class="card" href="Icy/Screenshot%202026-05-19%20at%2021.36.50.png" target="_blank" rel="noopener">
           <img src="Icy/Screenshot%202026-05-19%20at%2021.36.50.png" alt="Screenshot 2026-05-19 at 21.36.50.png" title="Screenshot 2026-05-19 at 21.36.50.png" loading="lazy">
@@ -866,8 +775,8 @@
         <a class="card" href="Icy/greenland.webp" target="_blank" rel="noopener">
           <img src="Icy/greenland.webp" alt="greenland.webp" title="greenland.webp" loading="lazy">
         </a>
-        <a class="card" href="Icy/grotte-de-glace-bleue-recouverte-neige-et-inondée-lumière-faite-d-ai-génératif-entrée-une-à-l-intérieur-un-glacier-273163543.webp" target="_blank" rel="noopener">
-          <img src="Icy/grotte-de-glace-bleue-recouverte-neige-et-inondée-lumière-faite-d-ai-génératif-entrée-une-à-l-intérieur-un-glacier-273163543.webp" alt="grotte-de-glace-bleue-recouverte-neige-et-inondée-lumière-faite-d-ai-génératif-entrée-une-à-l-intérieur-un-glacier-273163543.webp" title="grotte-de-glace-bleue-recouverte-neige-et-inondée-lumière-faite-d-ai-génératif-entrée-une-à-l-intérieur-un-glacier-273163543.webp" loading="lazy">
+        <a class="card" href="Icy/grotte-de-glace-bleue-recouverte-neige-et-inond%C3%A9e-lumi%C3%A8re-faite-d-ai-g%C3%A9n%C3%A9ratif-entr%C3%A9e-une-%C3%A0-l-int%C3%A9rieur-un-glacier-273163543.webp" target="_blank" rel="noopener">
+          <img src="Icy/grotte-de-glace-bleue-recouverte-neige-et-inond%C3%A9e-lumi%C3%A8re-faite-d-ai-g%C3%A9n%C3%A9ratif-entr%C3%A9e-une-%C3%A0-l-int%C3%A9rieur-un-glacier-273163543.webp" alt="grotte-de-glace-bleue-recouverte-neige-et-inondée-lumière-faite-d-ai-génératif-entrée-une-à-l-intérieur-un-glacier-273163543.webp" title="grotte-de-glace-bleue-recouverte-neige-et-inondée-lumière-faite-d-ai-génératif-entrée-une-à-l-intérieur-un-glacier-273163543.webp" loading="lazy">
         </a>
         <a class="card" href="Icy/il_1588xN.5754813110_d2n1.avif" target="_blank" rel="noopener">
           <img src="Icy/il_1588xN.5754813110_d2n1.avif" alt="il_1588xN.5754813110_d2n1.avif" title="il_1588xN.5754813110_d2n1.avif" loading="lazy">
@@ -882,7 +791,7 @@
     <details open>
       <summary>
         <span class="folder-title">Lighting</span>
-        <span class="count">4 images</span>
+        <span class="count">4 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -905,7 +814,7 @@
     <details open>
       <summary>
         <span class="folder-title">MirrorsEdge</span>
-        <span class="count">42 images</span>
+        <span class="count">42 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -918,11 +827,11 @@
         <a class="card" href="MirrorsEdge/Mirrors_Edge-1080p-Wallpaper-44b-NEW-EDEN-MALL-INTERIOR.jpg" target="_blank" rel="noopener">
           <img src="MirrorsEdge/Mirrors_Edge-1080p-Wallpaper-44b-NEW-EDEN-MALL-INTERIOR.jpg" alt="Mirrors_Edge-1080p-Wallpaper-44b-NEW-EDEN-MALL-INTERIOR.jpg" title="Mirrors_Edge-1080p-Wallpaper-44b-NEW-EDEN-MALL-INTERIOR.jpg" loading="lazy">
         </a>
-        <a class="card" href="MirrorsEdge/Mirrors_Edge_1920x1080%20(1).jpg" target="_blank" rel="noopener">
-          <img src="MirrorsEdge/Mirrors_Edge_1920x1080%20(1).jpg" alt="Mirrors_Edge_1920x1080 (1).jpg" title="Mirrors_Edge_1920x1080 (1).jpg" loading="lazy">
+        <a class="card" href="MirrorsEdge/Mirrors_Edge_1920x1080%20%281%29.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Mirrors_Edge_1920x1080%20%281%29.jpg" alt="Mirrors_Edge_1920x1080 (1).jpg" title="Mirrors_Edge_1920x1080 (1).jpg" loading="lazy">
         </a>
-        <a class="card" href="MirrorsEdge/Mirrors_Edge_1920x1080%20(2).jpg" target="_blank" rel="noopener">
-          <img src="MirrorsEdge/Mirrors_Edge_1920x1080%20(2).jpg" alt="Mirrors_Edge_1920x1080 (2).jpg" title="Mirrors_Edge_1920x1080 (2).jpg" loading="lazy">
+        <a class="card" href="MirrorsEdge/Mirrors_Edge_1920x1080%20%282%29.jpg" target="_blank" rel="noopener">
+          <img src="MirrorsEdge/Mirrors_Edge_1920x1080%20%282%29.jpg" alt="Mirrors_Edge_1920x1080 (2).jpg" title="Mirrors_Edge_1920x1080 (2).jpg" loading="lazy">
         </a>
         <a class="card" href="MirrorsEdge/Mirrors_Edge_1920x1080.jpg" target="_blank" rel="noopener">
           <img src="MirrorsEdge/Mirrors_Edge_1920x1080.jpg" alt="Mirrors_Edge_1920x1080.jpg" title="Mirrors_Edge_1920x1080.jpg" loading="lazy">
@@ -1042,7 +951,7 @@
     <details open>
       <summary>
         <span class="folder-title">PixelArt</span>
-        <span class="count">2 images</span>
+        <span class="count">2 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1059,7 +968,7 @@
     <details open>
       <summary>
         <span class="folder-title">Wallpapers</span>
-        <span class="count">90 images</span>
+        <span class="count">90 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1123,8 +1032,8 @@
         <a class="card" href="Wallpapers/RUSIA3VALNBFHEXFBUMAC576TI.webp" target="_blank" rel="noopener">
           <img src="Wallpapers/RUSIA3VALNBFHEXFBUMAC576TI.webp" alt="RUSIA3VALNBFHEXFBUMAC576TI.webp" title="RUSIA3VALNBFHEXFBUMAC576TI.webp" loading="lazy">
         </a>
-        <a class="card" href="Wallpapers/S+OOfO.jpg" target="_blank" rel="noopener">
-          <img src="Wallpapers/S+OOfO.jpg" alt="S+OOfO.jpg" title="S+OOfO.jpg" loading="lazy">
+        <a class="card" href="Wallpapers/S%2BOOfO.jpg" target="_blank" rel="noopener">
+          <img src="Wallpapers/S%2BOOfO.jpg" alt="S+OOfO.jpg" title="S+OOfO.jpg" loading="lazy">
         </a>
         <a class="card" href="Wallpapers/Triple_Blood_Cells.jpg" target="_blank" rel="noopener">
           <img src="Wallpapers/Triple_Blood_Cells.jpg" alt="Triple_Blood_Cells.jpg" title="Triple_Blood_Cells.jpg" loading="lazy">
@@ -1237,8 +1146,8 @@
         <a class="card" href="Wallpapers/tryptic.jpg" target="_blank" rel="noopener">
           <img src="Wallpapers/tryptic.jpg" alt="tryptic.jpg" title="tryptic.jpg" loading="lazy">
         </a>
-        <a class="card" href="Wallpapers/téléchargement.png" target="_blank" rel="noopener">
-          <img src="Wallpapers/téléchargement.png" alt="téléchargement.png" title="téléchargement.png" loading="lazy">
+        <a class="card" href="Wallpapers/t%C3%A9l%C3%A9chargement.png" target="_blank" rel="noopener">
+          <img src="Wallpapers/t%C3%A9l%C3%A9chargement.png" alt="téléchargement.png" title="téléchargement.png" loading="lazy">
         </a>
         <a class="card" href="Wallpapers/urban_nights-1920x1200.jpg" target="_blank" rel="noopener">
           <img src="Wallpapers/urban_nights-1920x1200.jpg" alt="urban_nights-1920x1200.jpg" title="urban_nights-1920x1200.jpg" loading="lazy">
@@ -1340,7 +1249,7 @@
     <details open>
       <summary>
         <span class="folder-title">Wipeput</span>
-        <span class="count">27 images</span>
+        <span class="count">27 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1428,11 +1337,26 @@
       </div>
     </details>
   </section>
+  <section id="anims">
+    <details open>
+      <summary>
+        <span class="folder-title">anims</span>
+        <span class="count">1 item</span>
+        <a class="top-btn" href="#top" title="Back to top">↑ top</a>
+      </summary>
+      <div class="masonry">
+        <button class="card media-card" type="button" data-kind="video" data-src="anims/venom_fan_animation%20%28720p%29.mp4" data-title="venom_fan_animation (720p).mp4">
+          <img src=".generated/previews/venom_fan_animation%20%28720p%29-c7ed76066e7c.gif" alt="venom_fan_animation (720p).mp4" title="Open venom_fan_animation (720p).mp4" loading="lazy">
+          <span class="media-badge" aria-hidden="true">&#9654;</span>
+        </button>
+      </div>
+    </details>
+  </section>
   <section id="bridges">
     <details open>
       <summary>
         <span class="folder-title">bridges</span>
-        <span class="count">3 images</span>
+        <span class="count">3 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1452,7 +1376,7 @@
     <details open>
       <summary>
         <span class="folder-title">cartoon</span>
-        <span class="count">35 images</span>
+        <span class="count">35 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1568,7 +1492,7 @@
     <details open>
       <summary>
         <span class="folder-title">characters</span>
-        <span class="count">13 images</span>
+        <span class="count">13 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1618,7 +1542,7 @@
     <details open>
       <summary>
         <span class="folder-title">city</span>
-        <span class="count">1 image</span>
+        <span class="count">1 item</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1632,7 +1556,7 @@
     <details open>
       <summary>
         <span class="folder-title">faces</span>
-        <span class="count">6 images</span>
+        <span class="count">6 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1661,7 +1585,7 @@
     <details open>
       <summary>
         <span class="folder-title">futurism</span>
-        <span class="count">11 images</span>
+        <span class="count">11 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1705,7 +1629,7 @@
     <details open>
       <summary>
         <span class="folder-title">geometry</span>
-        <span class="count">6 images</span>
+        <span class="count">6 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1734,7 +1658,7 @@
     <details open>
       <summary>
         <span class="folder-title">illustrations</span>
-        <span class="count">1 image</span>
+        <span class="count">1 item</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1748,7 +1672,7 @@
     <details open>
       <summary>
         <span class="folder-title">kaa</span>
-        <span class="count">6 images</span>
+        <span class="count">6 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1777,7 +1701,7 @@
     <details open>
       <summary>
         <span class="folder-title">landscape</span>
-        <span class="count">20 images</span>
+        <span class="count">20 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1848,7 +1772,7 @@
     <details open>
       <summary>
         <span class="folder-title">lightAndShadows</span>
-        <span class="count">2 images</span>
+        <span class="count">2 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1865,7 +1789,7 @@
     <details open>
       <summary>
         <span class="folder-title">manga</span>
-        <span class="count">1 image</span>
+        <span class="count">1 item</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1879,7 +1803,7 @@
     <details open>
       <summary>
         <span class="folder-title">maps</span>
-        <span class="count">1 image</span>
+        <span class="count">1 item</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -1893,12 +1817,12 @@
     <details open>
       <summary>
         <span class="folder-title">pipes</span>
-        <span class="count">9 images</span>
+        <span class="count">9 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
-        <a class="card" href="pipes/Tatsuwo+-+13.webp" target="_blank" rel="noopener">
-          <img src="pipes/Tatsuwo+-+13.webp" alt="Tatsuwo+-+13.webp" title="Tatsuwo+-+13.webp" loading="lazy">
+        <a class="card" href="pipes/Tatsuwo%2B-%2B13.webp" target="_blank" rel="noopener">
+          <img src="pipes/Tatsuwo%2B-%2B13.webp" alt="Tatsuwo+-+13.webp" title="Tatsuwo+-+13.webp" loading="lazy">
         </a>
         <a class="card" href="pipes/bafkreidjmhxc7i446e4etvdsetqizrrrplgc77twjuu3n3ncxzuylrbmyi.jpg" target="_blank" rel="noopener">
           <img src="pipes/bafkreidjmhxc7i446e4etvdsetqizrrrplgc77twjuu3n3ncxzuylrbmyi.jpg" alt="bafkreidjmhxc7i446e4etvdsetqizrrrplgc77twjuu3n3ncxzuylrbmyi.jpg" title="bafkreidjmhxc7i446e4etvdsetqizrrrplgc77twjuu3n3ncxzuylrbmyi.jpg" loading="lazy">
@@ -1931,7 +1855,7 @@
     <details open>
       <summary>
         <span class="folder-title">pipes2</span>
-        <span class="count">27 images</span>
+        <span class="count">27 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -2023,7 +1947,7 @@
     <details open>
       <summary>
         <span class="folder-title">plants</span>
-        <span class="count">1 image</span>
+        <span class="count">1 item</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -2037,7 +1961,7 @@
     <details open>
       <summary>
         <span class="folder-title">sketches</span>
-        <span class="count">2 images</span>
+        <span class="count">2 items</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -2054,7 +1978,7 @@
     <details open>
       <summary>
         <span class="folder-title">winter</span>
-        <span class="count">1 image</span>
+        <span class="count">1 item</span>
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
@@ -2066,26 +1990,181 @@
   </section>
   </main>
 
+  <dialog class="player" id="player" aria-labelledby="player-title">
+    <div class="player-header">
+      <strong class="player-title" id="player-title"></strong>
+      <button class="player-close" type="button" aria-label="Close player">&times;</button>
+    </div>
+    <div class="player-stage" id="player-stage"></div>
+    <div class="player-controls">
+      <button type="button" id="previous-frame" title="Previous frame">&#9664; Frame</button>
+      <button type="button" id="toggle-play" title="Play or pause">&#9654;</button>
+      <button type="button" id="next-frame" title="Next frame">Frame &#9654;</button>
+      <span class="frame-status" id="frame-status">Frame 1</span>
+    </div>
+  </dialog>
+
   <div class="fab-cluster">
     <a class="fab" href="#top" title="Back to top">&#9651;</a>
     <button class="fab" id="fab-section" title="Current section" onclick="fabSection()">&#9650;</button>
   </div>
 
   <script>
+    var player = document.getElementById('player');
+    var stage = document.getElementById('player-stage');
+    var frameStatus = document.getElementById('frame-status');
+    var toggle = document.getElementById('toggle-play');
+    var activeMedia = null;
+
     function fabSection() {
       var sections = Array.from(document.querySelectorAll('section'));
       var current = null;
       for (var i = 0; i < sections.length; i++) {
-        var top = sections[i].getBoundingClientRect().top;
-        if (top <= 80) current = sections[i];
+        if (sections[i].getBoundingClientRect().top <= 80) current = sections[i];
         else break;
       }
       var target = current || sections[0];
-      if (target) {
-        var summary = target.querySelector('summary');
-        (summary || target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (target) (target.querySelector('summary') || target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function updateVideoStatus() {
+      if (!activeMedia || activeMedia.kind !== 'video') return;
+      var frame = Math.floor(activeMedia.element.currentTime * activeMedia.fps + 0.5) + 1;
+      var total = activeMedia.element.duration
+        ? Math.max(1, Math.floor(activeMedia.element.duration * activeMedia.fps))
+        : null;
+      frameStatus.textContent = total ? 'Frame ' + frame + ' / ' + total : 'Frame ' + frame;
+      toggle.innerHTML = activeMedia.element.paused ? '&#9654;' : '&#10074;&#10074;';
+    }
+
+    async function showWebpFrame(index) {
+      if (!activeMedia || activeMedia.kind !== 'animated-webp') return;
+      var frameCount = activeMedia.track.frameCount;
+      activeMedia.index = (index + frameCount) % frameCount;
+      var result = await activeMedia.decoder.decode({ frameIndex: activeMedia.index });
+      var frame = result.image;
+      var canvas = activeMedia.element;
+      canvas.width = frame.displayWidth;
+      canvas.height = frame.displayHeight;
+      canvas.getContext('2d').drawImage(frame, 0, 0);
+      activeMedia.duration = Math.max(16, frame.duration / 1000 || 100);
+      frame.close();
+      frameStatus.textContent = 'Frame ' + (activeMedia.index + 1) + ' / ' + frameCount;
+    }
+
+    function stopPlayback() {
+      if (!activeMedia) return;
+      if (activeMedia.kind === 'video') activeMedia.element.pause();
+      if (activeMedia.timer) clearTimeout(activeMedia.timer);
+      activeMedia.timer = null;
+      toggle.innerHTML = '&#9654;';
+    }
+
+    async function playNextWebpFrame() {
+      if (!activeMedia || activeMedia.kind !== 'animated-webp' || !activeMedia.timer) return;
+      await showWebpFrame(activeMedia.index + 1);
+      activeMedia.timer = setTimeout(playNextWebpFrame, activeMedia.duration);
+    }
+
+    async function openMedia(card) {
+      stage.replaceChildren();
+      frameStatus.textContent = 'Loading...';
+      document.getElementById('player-title').textContent = card.dataset.title;
+      player.showModal();
+
+      if (card.dataset.kind === 'video') {
+        var video = document.createElement('video');
+        video.src = card.dataset.src;
+        video.preload = 'metadata';
+        video.playsInline = true;
+        video.addEventListener('timeupdate', updateVideoStatus);
+        video.addEventListener('seeked', updateVideoStatus);
+        video.addEventListener('play', updateVideoStatus);
+        video.addEventListener('pause', updateVideoStatus);
+        activeMedia = {
+          kind: 'video',
+          element: video,
+          fps: Number(card.dataset.fps) || 30
+        };
+        stage.appendChild(video);
+        video.addEventListener('loadedmetadata', updateVideoStatus, { once: true });
+        return;
+      }
+
+      if (!('ImageDecoder' in window)) {
+        stage.innerHTML = '<p class="player-error">Frame-by-frame animated WebP playback is not supported by this browser.</p>';
+        frameStatus.textContent = 'Unavailable';
+        return;
+      }
+
+      try {
+        var response = await fetch(card.dataset.src);
+        var decoder = new ImageDecoder({ data: await response.arrayBuffer(), type: 'image/webp' });
+        await decoder.tracks.ready;
+        var canvas = document.createElement('canvas');
+        activeMedia = {
+          kind: 'animated-webp',
+          element: canvas,
+          decoder: decoder,
+          track: decoder.tracks.selectedTrack,
+          index: 0,
+          timer: null,
+          duration: 100
+        };
+        stage.appendChild(canvas);
+        await showWebpFrame(0);
+      } catch (error) {
+        stage.innerHTML = '<p class="player-error">Unable to decode this animated WebP.</p>';
+        frameStatus.textContent = 'Unavailable';
+        console.error(error);
       }
     }
+
+    function stepFrame(direction) {
+      if (!activeMedia) return;
+      stopPlayback();
+      if (activeMedia.kind === 'video') {
+        var nextFrame = Math.round(activeMedia.element.currentTime * activeMedia.fps) + direction;
+        var maxFrame = activeMedia.element.duration
+          ? Math.max(0, Math.floor(activeMedia.element.duration * activeMedia.fps) - 1)
+          : Number.MAX_SAFE_INTEGER;
+        activeMedia.element.currentTime = Math.min(maxFrame, Math.max(0, nextFrame)) / activeMedia.fps;
+      } else {
+        showWebpFrame(activeMedia.index + direction);
+      }
+    }
+
+    document.querySelectorAll('.media-card').forEach(function(card) {
+      card.addEventListener('click', function() { openMedia(card); });
+    });
+    document.getElementById('previous-frame').addEventListener('click', function() { stepFrame(-1); });
+    document.getElementById('next-frame').addEventListener('click', function() { stepFrame(1); });
+    toggle.addEventListener('click', function() {
+      if (!activeMedia) return;
+      if (activeMedia.kind === 'video') {
+        if (activeMedia.element.paused) activeMedia.element.play();
+        else activeMedia.element.pause();
+      } else if (activeMedia.timer) {
+        stopPlayback();
+      } else {
+        activeMedia.timer = setTimeout(playNextWebpFrame, 0);
+        toggle.innerHTML = '&#10074;&#10074;';
+      }
+    });
+    document.querySelector('.player-close').addEventListener('click', function() { player.close(); });
+    player.addEventListener('click', function(event) { if (event.target === player) player.close(); });
+    player.addEventListener('close', function() {
+      stopPlayback();
+      if (activeMedia && activeMedia.decoder) activeMedia.decoder.close();
+      activeMedia = null;
+      stage.replaceChildren();
+    });
+    document.addEventListener('keydown', function(event) {
+      if (!player.open) return;
+      if (event.key === 'ArrowLeft') stepFrame(-1);
+      if (event.key === 'ArrowRight') stepFrame(1);
+      if (event.key === ' ') { event.preventDefault(); toggle.click(); }
+    });
   </script>
 </body>
 </html>
