@@ -71,7 +71,7 @@
       color: #fff; font-size: 1.15rem; pointer-events: none;
     }
     .player {
-      width: min(94vw, 1100px); max-height: 94vh; padding: 0; overflow: hidden;
+      width: min(96vw, 1400px); max-height: 94vh; padding: 0; overflow: auto;
       border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text);
     }
     .player::backdrop { background: rgba(0,0,0,.82); backdrop-filter: blur(3px); }
@@ -82,18 +82,40 @@
     .player-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .player-close { margin-left: auto; }
     .player-stage {
-      display: grid; place-items: center; height: min(72vh, 760px); background: #050505;
+      display: grid; place-items: center; height: min(58vh, 640px); background: #050505;
     }
     .player-stage video, .player-stage canvas {
       display: block; max-width: 100%; max-height: 100%; object-fit: contain;
     }
-    .player-controls { justify-content: center; border-top: 1px solid var(--border); }
+    .player-controls { justify-content: center; border-top: 1px solid var(--border); flex-wrap: wrap; }
     .player-controls button, .player-close {
       min-width: 2.5rem; padding: .4rem .7rem; border-radius: 5px;
       border: 1px solid var(--border); background: #222; cursor: pointer;
     }
     .player-controls button:hover, .player-close:hover { border-color: var(--accent); }
     .frame-status { min-width: 9rem; text-align: center; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .timeline-controls {
+      display: flex; align-items: center; gap: .75rem; width: 100%; padding: 0 .85rem .8rem;
+    }
+    .timeline-controls label, .mosaic-toolbar label {
+      display: flex; align-items: center; gap: .6rem; color: var(--muted); font-size: .8rem;
+    }
+    .timeline-controls label { flex: 1; }
+    .timeline-controls input { flex: 1; min-width: 8rem; accent-color: var(--accent); }
+    .timeline-time { min-width: 7rem; color: var(--muted); font-size: .78rem; text-align: right; font-variant-numeric: tabular-nums; }
+    .frame-browser {
+      --mosaic-sheet-width: 960px;
+      padding: .8rem; overflow-x: auto; border-top: 1px solid var(--border); background: #0d0d0d;
+    }
+    .mosaic-toolbar {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: .7rem;
+    }
+    .mosaic-toolbar strong { font-size: .88rem; }
+    .mosaic-toolbar label { margin-left: auto; }
+    .mosaic-toolbar input { width: min(30vw, 240px); accent-color: var(--accent); }
+    .thumbnail-size-value { min-width: 3rem; font-variant-numeric: tabular-nums; }
+    .frame-mosaic { display: flex; flex-direction: column; gap: 3px; align-items: flex-start; }
+    .mosaic-sheet { display: block; width: var(--mosaic-sheet-width); height: auto; cursor: crosshair; }
     .player-error { color: #ff9b9b; padding: 1rem; }
     @media (max-width: 900px) { .masonry { columns: 2; } }
     @media (max-width: 520px) {
@@ -1345,7 +1367,7 @@
         <a class="top-btn" href="#top" title="Back to top">↑ top</a>
       </summary>
       <div class="masonry">
-        <button class="card media-card" type="button" data-kind="video" data-src="anims/venom_fan_animation%20%28720p%29.mp4" data-title="venom_fan_animation (720p).mp4" data-fps="24">
+        <button class="card media-card" type="button" data-kind="video" data-src="anims/venom_fan_animation%20%28720p%29.mp4" data-title="venom_fan_animation (720p).mp4" data-fps="24" data-frame-count="1276" data-width="1280" data-height="720">
           <img src=".generated/previews/venom_fan_animation%20%28720p%29-c7ed76066e7c.gif" alt="venom_fan_animation (720p).mp4" title="Open venom_fan_animation (720p).mp4" loading="lazy">
           <span class="media-badge" aria-hidden="true">&#9654;</span>
         </button>
@@ -2002,6 +2024,22 @@
       <button type="button" id="next-frame" title="Next frame">Frame &#9654;</button>
       <span class="frame-status" id="frame-status">Frame 1</span>
     </div>
+    <div class="timeline-controls" id="timeline-controls" hidden>
+      <label for="timeline">Timeline
+        <input id="timeline" type="range" min="0" max="0" value="0" step="any">
+      </label>
+      <span class="timeline-time" id="timeline-time">0:00 / 0:00</span>
+    </div>
+    <div class="frame-browser" id="frame-browser" hidden>
+      <div class="mosaic-toolbar">
+        <strong id="mosaic-title">All frames</strong>
+        <label for="thumbnail-size">Thumbnail size
+          <input id="thumbnail-size" type="range" min="48" max="240" value="96" step="8">
+          <output class="thumbnail-size-value" id="thumbnail-size-value">96 px</output>
+        </label>
+      </div>
+      <div class="frame-mosaic" id="frame-mosaic"></div>
+    </div>
   </dialog>
 
   <div class="fab-cluster">
@@ -2014,7 +2052,15 @@
     var stage = document.getElementById('player-stage');
     var frameStatus = document.getElementById('frame-status');
     var toggle = document.getElementById('toggle-play');
+    var timelineControls = document.getElementById('timeline-controls');
+    var timeline = document.getElementById('timeline');
+    var timelineTime = document.getElementById('timeline-time');
+    var frameBrowser = document.getElementById('frame-browser');
+    var frameMosaic = document.getElementById('frame-mosaic');
+    var thumbnailSize = document.getElementById('thumbnail-size');
+    var thumbnailSizeValue = document.getElementById('thumbnail-size-value');
     var activeMedia = null;
+    var mosaicBuildId = 0;
 
     function fabSection() {
       var sections = Array.from(document.querySelectorAll('section'));
@@ -2027,14 +2073,102 @@
       if (target) (target.querySelector('summary') || target).scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
+    function formatTime(seconds) {
+      if (!Number.isFinite(seconds)) return '0:00';
+      var wholeSeconds = Math.max(0, Math.floor(seconds));
+      var minutes = Math.floor(wholeSeconds / 60);
+      return minutes + ':' + String(wholeSeconds % 60).padStart(2, '0');
+    }
+
     function updateVideoStatus() {
       if (!activeMedia || activeMedia.kind !== 'video') return;
-      var frame = Math.floor(activeMedia.element.currentTime * activeMedia.fps + 0.5) + 1;
-      var total = activeMedia.element.duration
-        ? Math.max(1, Math.floor(activeMedia.element.duration * activeMedia.fps))
-        : null;
+      var total = activeMedia.frameCount;
+      var frame = Math.min(total, Math.floor(activeMedia.element.currentTime * activeMedia.fps + 0.5) + 1);
       frameStatus.textContent = total ? 'Frame ' + frame + ' / ' + total : 'Frame ' + frame;
       toggle.innerHTML = activeMedia.element.paused ? '&#9654;' : '&#10074;&#10074;';
+      timeline.value = activeMedia.element.currentTime;
+      timelineTime.textContent = formatTime(activeMedia.element.currentTime) + ' / ' + formatTime(activeMedia.element.duration);
+    }
+
+    function waitForVideo(video, eventName) {
+      return new Promise(function(resolve, reject) {
+        function cleanup() {
+          video.removeEventListener(eventName, handleEvent);
+          video.removeEventListener('error', handleError);
+        }
+        function handleEvent() { cleanup(); resolve(); }
+        function handleError() { cleanup(); reject(new Error('Unable to decode video frames.')); }
+        video.addEventListener(eventName, handleEvent, { once: true });
+        video.addEventListener('error', handleError, { once: true });
+      });
+    }
+
+    async function seekVideo(video, time) {
+      if (Math.abs(video.currentTime - time) < 0.000001 && video.readyState >= 2) return;
+      var ready = waitForVideo(video, 'seeked');
+      video.currentTime = time;
+      await ready;
+    }
+
+    async function populateMosaic(card, buildId) {
+      var frameCount = Number(card.dataset.frameCount);
+      var fps = Number(card.dataset.fps) || 30;
+      var columns = 10;
+      var rows = 10;
+      var framesPerSheet = columns * rows;
+      var captureWidth = 160;
+      var captureHeight = Math.max(1, Math.round(captureWidth * Number(card.dataset.height) / Number(card.dataset.width)));
+      var source = document.createElement('video');
+      source.src = card.dataset.src;
+      source.preload = 'auto';
+      source.muted = true;
+      frameMosaic.replaceChildren();
+      document.getElementById('mosaic-title').textContent = 'Generating frames... 0 / ' + frameCount;
+
+      try {
+        if (source.readyState < 2) await waitForVideo(source, 'loadeddata');
+        for (var index = 0; index < frameCount; index++) {
+          if (buildId !== mosaicBuildId) return;
+          var position = index % framesPerSheet;
+          var row = Math.floor(position / columns);
+          var column = position % columns;
+          if (position === 0) {
+            var remainingFrames = frameCount - index;
+            var sheetRows = Math.min(rows, Math.ceil(remainingFrames / columns));
+            var sheet = document.createElement('canvas');
+            sheet.className = 'mosaic-sheet';
+            sheet.width = captureWidth * columns;
+            sheet.height = captureHeight * sheetRows;
+            sheet.dataset.startFrame = index;
+            sheet.dataset.rows = sheetRows;
+            frameMosaic.appendChild(sheet);
+          }
+
+          var time = Math.min((index + 0.25) / fps, Math.max(0, source.duration - 0.001));
+          await seekVideo(source, time);
+          if (buildId !== mosaicBuildId) return;
+          sheet.getContext('2d').drawImage(
+            source,
+            column * captureWidth,
+            row * captureHeight,
+            captureWidth,
+            captureHeight
+          );
+          if ((index + 1) % 10 === 0 || index + 1 === frameCount) {
+            document.getElementById('mosaic-title').textContent =
+              'Generating frames... ' + (index + 1) + ' / ' + frameCount;
+            await new Promise(function(resolve) { requestAnimationFrame(resolve); });
+          }
+        }
+        document.getElementById('mosaic-title').textContent = 'All ' + frameCount + ' frames';
+      } catch (error) {
+        if (buildId !== mosaicBuildId) return;
+        document.getElementById('mosaic-title').textContent = 'Unable to generate frame mosaic';
+        console.error(error);
+      } finally {
+        source.removeAttribute('src');
+        source.load();
+      }
     }
 
     async function showWebpFrame(index) {
@@ -2068,6 +2202,9 @@
 
     async function openMedia(card) {
       stage.replaceChildren();
+      timelineControls.hidden = true;
+      frameBrowser.hidden = true;
+      frameMosaic.replaceChildren();
       frameStatus.textContent = 'Loading...';
       document.getElementById('player-title').textContent = card.dataset.title;
       player.showModal();
@@ -2084,10 +2221,19 @@
         activeMedia = {
           kind: 'video',
           element: video,
-          fps: Number(card.dataset.fps) || 30
+          fps: Number(card.dataset.fps) || 30,
+          frameCount: Number(card.dataset.frameCount)
         };
         stage.appendChild(video);
-        video.addEventListener('loadedmetadata', updateVideoStatus, { once: true });
+        var buildId = ++mosaicBuildId;
+        populateMosaic(card, buildId);
+        timelineControls.hidden = false;
+        frameBrowser.hidden = false;
+        video.addEventListener('loadedmetadata', function() {
+          timeline.max = video.duration;
+          timeline.step = 1 / activeMedia.fps;
+          updateVideoStatus();
+        }, { once: true });
         return;
       }
 
@@ -2139,6 +2285,26 @@
     });
     document.getElementById('previous-frame').addEventListener('click', function() { stepFrame(-1); });
     document.getElementById('next-frame').addEventListener('click', function() { stepFrame(1); });
+    timeline.addEventListener('input', function() {
+      if (!activeMedia || activeMedia.kind !== 'video') return;
+      activeMedia.element.currentTime = Number(timeline.value);
+    });
+    frameMosaic.addEventListener('click', function(event) {
+      var sheet = event.target.closest('.mosaic-sheet');
+      if (!sheet || !activeMedia || activeMedia.kind !== 'video') return;
+      var bounds = sheet.getBoundingClientRect();
+      var column = Math.min(10 - 1, Math.floor((event.clientX - bounds.left) / bounds.width * 10));
+      var row = Math.min(Number(sheet.dataset.rows) - 1, Math.floor((event.clientY - bounds.top) / bounds.height * Number(sheet.dataset.rows)));
+      var frame = Number(sheet.dataset.startFrame) + row * 10 + column;
+      if (frame >= activeMedia.frameCount) return;
+      stopPlayback();
+      activeMedia.element.currentTime = frame / activeMedia.fps;
+      stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    thumbnailSize.addEventListener('input', function() {
+      frameBrowser.style.setProperty('--mosaic-sheet-width', (Number(thumbnailSize.value) * 10) + 'px');
+      thumbnailSizeValue.value = thumbnailSize.value + ' px';
+    });
     toggle.addEventListener('click', function() {
       if (!activeMedia) return;
       if (activeMedia.kind === 'video') {
@@ -2154,13 +2320,18 @@
     document.querySelector('.player-close').addEventListener('click', function() { player.close(); });
     player.addEventListener('click', function(event) { if (event.target === player) player.close(); });
     player.addEventListener('close', function() {
+      mosaicBuildId++;
       stopPlayback();
       if (activeMedia && activeMedia.decoder) activeMedia.decoder.close();
       activeMedia = null;
       stage.replaceChildren();
+      frameMosaic.replaceChildren();
+      timelineControls.hidden = true;
+      frameBrowser.hidden = true;
     });
     document.addEventListener('keydown', function(event) {
       if (!player.open) return;
+      if (event.target.matches('input[type="range"]')) return;
       if (event.key === 'ArrowLeft') stepFrame(-1);
       if (event.key === 'ArrowRight') stepFrame(1);
       if (event.key === ' ') { event.preventDefault(); toggle.click(); }

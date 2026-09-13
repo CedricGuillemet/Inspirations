@@ -21,6 +21,8 @@ VIDEO_EXTS = {".mp4"}
 SKIP_DIRS = {".git", ".github", ".generated", "scripts", "node_modules", ".DS_Store"}
 SKIP_FILES = {".DS_Store", "screenshot.jpg"}
 PREVIEW_DURATION_SECONDS = 1
+MOSAIC_COLUMNS = 10
+MOSAIC_ROWS = 10
 
 
 @dataclass(frozen=True)
@@ -29,6 +31,17 @@ class Media:
     kind: str
     preview: str | None = None
     frame_rate: float | None = None
+    frame_count: int | None = None
+    width: int | None = None
+    height: int | None = None
+
+
+@dataclass(frozen=True)
+class VideoMetadata:
+    frame_rate: float
+    frame_count: int
+    width: int
+    height: int
 
 
 def is_animated_webp(path: Path) -> bool:
@@ -45,10 +58,10 @@ def media_digest(path: Path) -> str:
     return digest.hexdigest()[:12]
 
 
-def probe_frame_rate(path: Path) -> float | None:
+def probe_video(path: Path) -> VideoMetadata:
     ffprobe = shutil.which("ffprobe")
     if not ffprobe:
-        return None
+        raise RuntimeError(f"ffprobe is required to inspect {path.name}")
 
     result = subprocess.run(
         [
@@ -58,7 +71,7 @@ def probe_frame_rate(path: Path) -> float | None:
             "-select_streams",
             "v:0",
             "-show_entries",
-            "stream=avg_frame_rate",
+            "stream=avg_frame_rate,nb_frames,width,height:format=duration",
             "-of",
             "json",
             str(path),
@@ -67,9 +80,30 @@ def probe_frame_rate(path: Path) -> float | None:
         capture_output=True,
         text=True,
     )
-    rate = json.loads(result.stdout)["streams"][0].get("avg_frame_rate", "0/0")
+    payload = json.loads(result.stdout)
+    if not payload.get("streams"):
+        raise RuntimeError(f"No video stream found in {path.name}")
+
+    stream = payload["streams"][0]
+    rate = stream.get("avg_frame_rate", "0/0")
     numerator, denominator = (int(part) for part in rate.split("/", 1))
-    return numerator / denominator if denominator else None
+    if not denominator or not numerator:
+        raise RuntimeError(f"Unable to determine the frame rate for {path.name}")
+
+    frame_rate = numerator / denominator
+    frame_count_value = stream.get("nb_frames")
+    if frame_count_value and frame_count_value != "N/A":
+        frame_count = int(frame_count_value)
+    else:
+        duration = float(payload.get("format", {}).get("duration", 0))
+        frame_count = max(1, round(duration * frame_rate))
+
+    return VideoMetadata(
+        frame_rate=frame_rate,
+        frame_count=frame_count,
+        width=int(stream["width"]),
+        height=int(stream["height"]),
+    )
 
 
 def generate_preview(source: Path, preview: Path) -> None:
@@ -131,15 +165,20 @@ def collect_media(root: Path) -> dict[str, list[Media]]:
 
             relative_path = (rel_dir / filename).as_posix()
             if is_video or is_animated_image:
-                preview_name = f"{source.stem}-{media_digest(source)}.gif"
+                digest = media_digest(source)
+                preview_name = f"{source.stem}-{digest}.gif"
                 preview = root / ".generated" / "previews" / preview_name
                 generate_preview(source, preview)
+                video_metadata = probe_video(source) if is_video else None
                 folders[folder_key].append(
                     Media(
                         path=relative_path,
                         kind="video" if is_video else "animated-webp",
                         preview=preview.relative_to(root).as_posix(),
-                        frame_rate=probe_frame_rate(source) if is_video else None,
+                        frame_rate=video_metadata.frame_rate if video_metadata else None,
+                        frame_count=video_metadata.frame_count if video_metadata else None,
+                        width=video_metadata.width if video_metadata else None,
+                        height=video_metadata.height if video_metadata else None,
                     )
                 )
             else:
@@ -203,9 +242,15 @@ def build_html(folders: dict[str, list[Media]], repo_name: str = "Inspirations")
                 continue
 
             frame_rate = f' data-fps="{media.frame_rate:.6g}"' if media.frame_rate else ""
+            video_data = ""
+            if media.kind == "video":
+                video_data = (
+                    f' data-frame-count="{media.frame_count}"'
+                    f' data-width="{media.width}" data-height="{media.height}"'
+                )
             cards.append(
                 f'        <button class="card media-card" type="button" data-kind="{media.kind}" '
-                f'data-src="{url(media.path)}" data-title="{escaped_filename}"{frame_rate}>\n'
+                f'data-src="{url(media.path)}" data-title="{escaped_filename}"{frame_rate}{video_data}>\n'
                 f'          <img src="{url(media.preview or media.path)}" alt="{escaped_filename}" '
                 f'title="Open {escaped_filename}" loading="lazy">\n'
                 f'          <span class="media-badge" aria-hidden="true">&#9654;</span>\n'
@@ -308,7 +353,7 @@ def build_html(folders: dict[str, list[Media]], repo_name: str = "Inspirations")
       color: #fff; font-size: 1.15rem; pointer-events: none;
     }}
     .player {{
-      width: min(94vw, 1100px); max-height: 94vh; padding: 0; overflow: hidden;
+      width: min(96vw, 1400px); max-height: 94vh; padding: 0; overflow: auto;
       border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text);
     }}
     .player::backdrop {{ background: rgba(0,0,0,.82); backdrop-filter: blur(3px); }}
@@ -319,18 +364,40 @@ def build_html(folders: dict[str, list[Media]], repo_name: str = "Inspirations")
     .player-title {{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
     .player-close {{ margin-left: auto; }}
     .player-stage {{
-      display: grid; place-items: center; height: min(72vh, 760px); background: #050505;
+      display: grid; place-items: center; height: min(58vh, 640px); background: #050505;
     }}
     .player-stage video, .player-stage canvas {{
       display: block; max-width: 100%; max-height: 100%; object-fit: contain;
     }}
-    .player-controls {{ justify-content: center; border-top: 1px solid var(--border); }}
+    .player-controls {{ justify-content: center; border-top: 1px solid var(--border); flex-wrap: wrap; }}
     .player-controls button, .player-close {{
       min-width: 2.5rem; padding: .4rem .7rem; border-radius: 5px;
       border: 1px solid var(--border); background: #222; cursor: pointer;
     }}
     .player-controls button:hover, .player-close:hover {{ border-color: var(--accent); }}
     .frame-status {{ min-width: 9rem; text-align: center; color: var(--muted); font-variant-numeric: tabular-nums; }}
+    .timeline-controls {{
+      display: flex; align-items: center; gap: .75rem; width: 100%; padding: 0 .85rem .8rem;
+    }}
+    .timeline-controls label, .mosaic-toolbar label {{
+      display: flex; align-items: center; gap: .6rem; color: var(--muted); font-size: .8rem;
+    }}
+    .timeline-controls label {{ flex: 1; }}
+    .timeline-controls input {{ flex: 1; min-width: 8rem; accent-color: var(--accent); }}
+    .timeline-time {{ min-width: 7rem; color: var(--muted); font-size: .78rem; text-align: right; font-variant-numeric: tabular-nums; }}
+    .frame-browser {{
+      --mosaic-sheet-width: 960px;
+      padding: .8rem; overflow-x: auto; border-top: 1px solid var(--border); background: #0d0d0d;
+    }}
+    .mosaic-toolbar {{
+      display: flex; align-items: center; gap: 1rem; margin-bottom: .7rem;
+    }}
+    .mosaic-toolbar strong {{ font-size: .88rem; }}
+    .mosaic-toolbar label {{ margin-left: auto; }}
+    .mosaic-toolbar input {{ width: min(30vw, 240px); accent-color: var(--accent); }}
+    .thumbnail-size-value {{ min-width: 3rem; font-variant-numeric: tabular-nums; }}
+    .frame-mosaic {{ display: flex; flex-direction: column; gap: 3px; align-items: flex-start; }}
+    .mosaic-sheet {{ display: block; width: var(--mosaic-sheet-width); height: auto; cursor: crosshair; }}
     .player-error {{ color: #ff9b9b; padding: 1rem; }}
     @media (max-width: 900px) {{ .masonry {{ columns: 2; }} }}
     @media (max-width: 520px) {{
@@ -374,6 +441,22 @@ def build_html(folders: dict[str, list[Media]], repo_name: str = "Inspirations")
       <button type="button" id="next-frame" title="Next frame">Frame &#9654;</button>
       <span class="frame-status" id="frame-status">Frame 1</span>
     </div>
+    <div class="timeline-controls" id="timeline-controls" hidden>
+      <label for="timeline">Timeline
+        <input id="timeline" type="range" min="0" max="0" value="0" step="any">
+      </label>
+      <span class="timeline-time" id="timeline-time">0:00 / 0:00</span>
+    </div>
+    <div class="frame-browser" id="frame-browser" hidden>
+      <div class="mosaic-toolbar">
+        <strong id="mosaic-title">All frames</strong>
+        <label for="thumbnail-size">Thumbnail size
+          <input id="thumbnail-size" type="range" min="48" max="240" value="96" step="8">
+          <output class="thumbnail-size-value" id="thumbnail-size-value">96 px</output>
+        </label>
+      </div>
+      <div class="frame-mosaic" id="frame-mosaic"></div>
+    </div>
   </dialog>
 
   <div class="fab-cluster">
@@ -386,7 +469,15 @@ def build_html(folders: dict[str, list[Media]], repo_name: str = "Inspirations")
     var stage = document.getElementById('player-stage');
     var frameStatus = document.getElementById('frame-status');
     var toggle = document.getElementById('toggle-play');
+    var timelineControls = document.getElementById('timeline-controls');
+    var timeline = document.getElementById('timeline');
+    var timelineTime = document.getElementById('timeline-time');
+    var frameBrowser = document.getElementById('frame-browser');
+    var frameMosaic = document.getElementById('frame-mosaic');
+    var thumbnailSize = document.getElementById('thumbnail-size');
+    var thumbnailSizeValue = document.getElementById('thumbnail-size-value');
     var activeMedia = null;
+    var mosaicBuildId = 0;
 
     function fabSection() {{
       var sections = Array.from(document.querySelectorAll('section'));
@@ -399,14 +490,102 @@ def build_html(folders: dict[str, list[Media]], repo_name: str = "Inspirations")
       if (target) (target.querySelector('summary') || target).scrollIntoView({{ behavior: 'smooth', block: 'start' }});
     }}
 
+    function formatTime(seconds) {{
+      if (!Number.isFinite(seconds)) return '0:00';
+      var wholeSeconds = Math.max(0, Math.floor(seconds));
+      var minutes = Math.floor(wholeSeconds / 60);
+      return minutes + ':' + String(wholeSeconds % 60).padStart(2, '0');
+    }}
+
     function updateVideoStatus() {{
       if (!activeMedia || activeMedia.kind !== 'video') return;
-      var frame = Math.floor(activeMedia.element.currentTime * activeMedia.fps + 0.5) + 1;
-      var total = activeMedia.element.duration
-        ? Math.max(1, Math.floor(activeMedia.element.duration * activeMedia.fps))
-        : null;
+      var total = activeMedia.frameCount;
+      var frame = Math.min(total, Math.floor(activeMedia.element.currentTime * activeMedia.fps + 0.5) + 1);
       frameStatus.textContent = total ? 'Frame ' + frame + ' / ' + total : 'Frame ' + frame;
       toggle.innerHTML = activeMedia.element.paused ? '&#9654;' : '&#10074;&#10074;';
+      timeline.value = activeMedia.element.currentTime;
+      timelineTime.textContent = formatTime(activeMedia.element.currentTime) + ' / ' + formatTime(activeMedia.element.duration);
+    }}
+
+    function waitForVideo(video, eventName) {{
+      return new Promise(function(resolve, reject) {{
+        function cleanup() {{
+          video.removeEventListener(eventName, handleEvent);
+          video.removeEventListener('error', handleError);
+        }}
+        function handleEvent() {{ cleanup(); resolve(); }}
+        function handleError() {{ cleanup(); reject(new Error('Unable to decode video frames.')); }}
+        video.addEventListener(eventName, handleEvent, {{ once: true }});
+        video.addEventListener('error', handleError, {{ once: true }});
+      }});
+    }}
+
+    async function seekVideo(video, time) {{
+      if (Math.abs(video.currentTime - time) < 0.000001 && video.readyState >= 2) return;
+      var ready = waitForVideo(video, 'seeked');
+      video.currentTime = time;
+      await ready;
+    }}
+
+    async function populateMosaic(card, buildId) {{
+      var frameCount = Number(card.dataset.frameCount);
+      var fps = Number(card.dataset.fps) || 30;
+      var columns = {MOSAIC_COLUMNS};
+      var rows = {MOSAIC_ROWS};
+      var framesPerSheet = columns * rows;
+      var captureWidth = 160;
+      var captureHeight = Math.max(1, Math.round(captureWidth * Number(card.dataset.height) / Number(card.dataset.width)));
+      var source = document.createElement('video');
+      source.src = card.dataset.src;
+      source.preload = 'auto';
+      source.muted = true;
+      frameMosaic.replaceChildren();
+      document.getElementById('mosaic-title').textContent = 'Generating frames... 0 / ' + frameCount;
+
+      try {{
+        if (source.readyState < 2) await waitForVideo(source, 'loadeddata');
+        for (var index = 0; index < frameCount; index++) {{
+          if (buildId !== mosaicBuildId) return;
+          var position = index % framesPerSheet;
+          var row = Math.floor(position / columns);
+          var column = position % columns;
+          if (position === 0) {{
+            var remainingFrames = frameCount - index;
+            var sheetRows = Math.min(rows, Math.ceil(remainingFrames / columns));
+            var sheet = document.createElement('canvas');
+            sheet.className = 'mosaic-sheet';
+            sheet.width = captureWidth * columns;
+            sheet.height = captureHeight * sheetRows;
+            sheet.dataset.startFrame = index;
+            sheet.dataset.rows = sheetRows;
+            frameMosaic.appendChild(sheet);
+          }}
+
+          var time = Math.min((index + 0.25) / fps, Math.max(0, source.duration - 0.001));
+          await seekVideo(source, time);
+          if (buildId !== mosaicBuildId) return;
+          sheet.getContext('2d').drawImage(
+            source,
+            column * captureWidth,
+            row * captureHeight,
+            captureWidth,
+            captureHeight
+          );
+          if ((index + 1) % 10 === 0 || index + 1 === frameCount) {{
+            document.getElementById('mosaic-title').textContent =
+              'Generating frames... ' + (index + 1) + ' / ' + frameCount;
+            await new Promise(function(resolve) {{ requestAnimationFrame(resolve); }});
+          }}
+        }}
+        document.getElementById('mosaic-title').textContent = 'All ' + frameCount + ' frames';
+      }} catch (error) {{
+        if (buildId !== mosaicBuildId) return;
+        document.getElementById('mosaic-title').textContent = 'Unable to generate frame mosaic';
+        console.error(error);
+      }} finally {{
+        source.removeAttribute('src');
+        source.load();
+      }}
     }}
 
     async function showWebpFrame(index) {{
@@ -440,6 +619,9 @@ def build_html(folders: dict[str, list[Media]], repo_name: str = "Inspirations")
 
     async function openMedia(card) {{
       stage.replaceChildren();
+      timelineControls.hidden = true;
+      frameBrowser.hidden = true;
+      frameMosaic.replaceChildren();
       frameStatus.textContent = 'Loading...';
       document.getElementById('player-title').textContent = card.dataset.title;
       player.showModal();
@@ -456,10 +638,19 @@ def build_html(folders: dict[str, list[Media]], repo_name: str = "Inspirations")
         activeMedia = {{
           kind: 'video',
           element: video,
-          fps: Number(card.dataset.fps) || 30
+          fps: Number(card.dataset.fps) || 30,
+          frameCount: Number(card.dataset.frameCount)
         }};
         stage.appendChild(video);
-        video.addEventListener('loadedmetadata', updateVideoStatus, {{ once: true }});
+        var buildId = ++mosaicBuildId;
+        populateMosaic(card, buildId);
+        timelineControls.hidden = false;
+        frameBrowser.hidden = false;
+        video.addEventListener('loadedmetadata', function() {{
+          timeline.max = video.duration;
+          timeline.step = 1 / activeMedia.fps;
+          updateVideoStatus();
+        }}, {{ once: true }});
         return;
       }}
 
@@ -511,6 +702,26 @@ def build_html(folders: dict[str, list[Media]], repo_name: str = "Inspirations")
     }});
     document.getElementById('previous-frame').addEventListener('click', function() {{ stepFrame(-1); }});
     document.getElementById('next-frame').addEventListener('click', function() {{ stepFrame(1); }});
+    timeline.addEventListener('input', function() {{
+      if (!activeMedia || activeMedia.kind !== 'video') return;
+      activeMedia.element.currentTime = Number(timeline.value);
+    }});
+    frameMosaic.addEventListener('click', function(event) {{
+      var sheet = event.target.closest('.mosaic-sheet');
+      if (!sheet || !activeMedia || activeMedia.kind !== 'video') return;
+      var bounds = sheet.getBoundingClientRect();
+      var column = Math.min({MOSAIC_COLUMNS} - 1, Math.floor((event.clientX - bounds.left) / bounds.width * {MOSAIC_COLUMNS}));
+      var row = Math.min(Number(sheet.dataset.rows) - 1, Math.floor((event.clientY - bounds.top) / bounds.height * Number(sheet.dataset.rows)));
+      var frame = Number(sheet.dataset.startFrame) + row * {MOSAIC_COLUMNS} + column;
+      if (frame >= activeMedia.frameCount) return;
+      stopPlayback();
+      activeMedia.element.currentTime = frame / activeMedia.fps;
+      stage.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+    }});
+    thumbnailSize.addEventListener('input', function() {{
+      frameBrowser.style.setProperty('--mosaic-sheet-width', (Number(thumbnailSize.value) * {MOSAIC_COLUMNS}) + 'px');
+      thumbnailSizeValue.value = thumbnailSize.value + ' px';
+    }});
     toggle.addEventListener('click', function() {{
       if (!activeMedia) return;
       if (activeMedia.kind === 'video') {{
@@ -526,13 +737,18 @@ def build_html(folders: dict[str, list[Media]], repo_name: str = "Inspirations")
     document.querySelector('.player-close').addEventListener('click', function() {{ player.close(); }});
     player.addEventListener('click', function(event) {{ if (event.target === player) player.close(); }});
     player.addEventListener('close', function() {{
+      mosaicBuildId++;
       stopPlayback();
       if (activeMedia && activeMedia.decoder) activeMedia.decoder.close();
       activeMedia = null;
       stage.replaceChildren();
+      frameMosaic.replaceChildren();
+      timelineControls.hidden = true;
+      frameBrowser.hidden = true;
     }});
     document.addEventListener('keydown', function(event) {{
       if (!player.open) return;
+      if (event.target.matches('input[type="range"]')) return;
       if (event.key === 'ArrowLeft') stepFrame(-1);
       if (event.key === 'ArrowRight') stepFrame(1);
       if (event.key === ' ') {{ event.preventDefault(); toggle.click(); }}
@@ -555,8 +771,10 @@ def main() -> None:
         print("No supported media found.", file=sys.stderr)
         sys.exit(1)
 
+    repository = os.environ.get("GITHUB_REPOSITORY")
+    repo_name = repository.rsplit("/", 1)[-1] if repository else repo_root.name
     output = repo_root / "index.html"
-    output.write_text(build_html(folders, repo_root.name), encoding="utf-8")
+    output.write_text(build_html(folders, repo_name), encoding="utf-8")
     item_count = sum(len(items) for items in folders.values())
     print(f"Generated {output} ({item_count} items, {len(folders)} folders)")
 
