@@ -1,4 +1,4 @@
-name: Generate Image Index
+name: Generate Media Index
 
 on:
   push:
@@ -36,10 +36,15 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install video tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
+
       - name: Generate index.html
         run: python scripts/generate_index.py "${{ github.workspace }}"
 
-      - name: Commit and push index.html
+      - name: Commit and push generated gallery
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -49,7 +54,7 @@ jobs:
           git remote set-url origin \
             "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
 
-          git add index.html
+          git add index.html .generated/previews
 
           if git diff --cached --quiet; then
             echo "index.html is already up-to-date, nothing to commit."
